@@ -12,4 +12,10 @@ public class BibliotecaApp {
     public static void quit() {
         System.exit(0);
     }
+
+    public static void input(String words) {
+        if (words.equals("quit")) {
+            quit();
+        }
+    }
 }
