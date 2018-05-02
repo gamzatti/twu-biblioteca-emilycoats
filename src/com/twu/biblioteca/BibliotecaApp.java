@@ -8,4 +8,8 @@ public class BibliotecaApp {
         String message = new String("Welcome to Biblioteca");
         return message;
     }
+
+    public static void quit() {
+        System.exit(0);
+    }
 }
