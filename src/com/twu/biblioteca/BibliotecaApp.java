@@ -4,19 +4,27 @@ public class BibliotecaApp {
 
     public static void main(String[] args){}
 
-    public static String welcome() {
-        String message = new String("Welcome to Biblioteca");
+    static String welcome() {
+        String message = new String("Welcome to Biblioteca\n");
         System.out.print(message);
         return message;
     }
 
-    public static void quit() {
+    static void quit() {
         System.exit(0);
     }
 
-    public static void input(String words) {
+    static void input(String words) {
         if (words.equals("quit")) {
             quit();
         }
     }
+
+    static String menu() {
+        String message = "Main menu. Select from the options below. \n 1. List books";
+        System.out.println(message);
+        return message;
+
+    }
 }
+
