@@ -10,4 +10,9 @@ public class BibliotecaAppTest {
     public void testWelcome() {
         assertEquals("Welcome to Biblioteca", BibliotecaApp.welcome());
     }
+
+    @Test
+    public void testQuit() {
+        
+    }
 }
