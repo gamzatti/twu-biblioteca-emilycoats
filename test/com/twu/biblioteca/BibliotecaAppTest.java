@@ -17,22 +17,16 @@ public class BibliotecaAppTest {
     public final ExpectedSystemExit exit = ExpectedSystemExit.none();
 
     @Test
-    public void testMenu() {
-        String menuExpected = "Main menu. Select from the options below. \n 1. List books\n";
-        BibliotecaApp.menu();
-        assertEquals(menuExpected, systemOutRule.getLog());
-    }
-
-    @Test
     public void testWelcomePrints() {
         BibliotecaApp.welcome();
         assertEquals("Welcome to Biblioteca\n", systemOutRule.getLog());
     }
 
     @Test
-    public void testSystemExits() {
-        exit.expectSystemExit();
-        BibliotecaApp.quit();
+    public void testMenuPrints() {
+        String menuExpected = "Main menu. Select from the options below. \n 1. List books\n";
+        BibliotecaApp.menu();
+        assertEquals(menuExpected, systemOutRule.getLog());
     }
 
     @Test

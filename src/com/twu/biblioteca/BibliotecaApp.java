@@ -1,16 +1,18 @@
 package com.twu.biblioteca;
 
 public class BibliotecaApp {
+    private final static String WELCOME = "Welcome to Biblioteca\n";
+    private final static String MENU = "Main menu. Select from the options below. \n 1. List books";
 
     public static void main(String[] args){}
 
     static String welcome() {
-        String message = new String("Welcome to Biblioteca\n");
+        String message = WELCOME;
         System.out.print(message);
         return message;
     }
 
-    static void quit() {
+    private static void quit() {
         System.exit(0);
     }
 
@@ -21,7 +23,7 @@ public class BibliotecaApp {
     }
 
     static String menu() {
-        String message = "Main menu. Select from the options below. \n 1. List books";
+        String message = MENU;
         System.out.println(message);
         return message;
 
