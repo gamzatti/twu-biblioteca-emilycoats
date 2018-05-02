@@ -6,6 +6,7 @@ public class BibliotecaApp {
 
     public static String welcome() {
         String message = new String("Welcome to Biblioteca");
+        System.out.print(message);
         return message;
     }
 
