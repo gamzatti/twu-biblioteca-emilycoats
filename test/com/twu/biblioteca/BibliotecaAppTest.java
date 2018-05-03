@@ -3,9 +3,10 @@ package com.twu.biblioteca;
 import org.junit.Rule;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import static org.junit.contrib.java.lang.system.TextFromStandardInputStream.*;
 import org.junit.contrib.java.lang.system.ExpectedSystemExit;
 import org.junit.contrib.java.lang.system.SystemOutRule;
-
+import org.junit.contrib.java.lang.system.TextFromStandardInputStream;
 
 
 public class BibliotecaAppTest {
@@ -14,7 +15,11 @@ public class BibliotecaAppTest {
     public final SystemOutRule systemOutRule = new SystemOutRule().enableLog();
 
     @Rule
+    public final TextFromStandardInputStream systemInMock = emptyStandardInputStream();
+
+    @Rule
     public final ExpectedSystemExit exit = ExpectedSystemExit.none();
+
 
     @Test
     public void testWelcomePrints() {
@@ -32,11 +37,26 @@ public class BibliotecaAppTest {
     @Test
     public void testInputQuitCausesExit() {
         exit.expectSystemExit();
-        BibliotecaApp.input("quit");
+        BibliotecaApp.useInput("quit");
     }
 
     @Test
     public void testOtherInputDoesNotExit() {
-        BibliotecaApp.input("foo");
+        BibliotecaApp.useInput("foo");
+    }
+
+    @Test
+    public void testTyping() {
+        systemInMock.provideLines("foo");
+        assertEquals("foo", BibliotecaApp.getInput());
+    }
+
+    @Test
+    public void testTypingQuitCausesExit() {
+        exit.expectSystemExit();
+        systemInMock.provideLines("quit");
+        String input = BibliotecaApp.getInput();
+        BibliotecaApp.useInput(input);
+
     }
 }
