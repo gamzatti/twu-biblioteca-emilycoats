@@ -67,11 +67,5 @@ public class BibliotecaAppTest {
         assertEquals(expected, systemOutRule.getLog());
     }
 
-    @Test
-    public void testSuccessfulCheckout(){
-        Library l = new Library();
-        Book b = new Book();
-        l.checkout(b);
-        assertEquals("Thank you! Enjoy the book\n", systemOutRule.getLog());
-    }
+
 }

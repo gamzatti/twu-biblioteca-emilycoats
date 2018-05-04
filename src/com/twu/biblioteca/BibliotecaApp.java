@@ -2,6 +2,7 @@ package com.twu.biblioteca;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class BibliotecaApp {
@@ -13,7 +14,7 @@ public class BibliotecaApp {
         start();
     }
 
-    static void start() {
+    private static void start() {
         System.out.print(WELCOME);
         System.out.println(MENU);
         useInput(getInput());
@@ -56,8 +57,15 @@ public class BibliotecaApp {
 }
 
 class Library {
+    ArrayList<Book> availableBooks = new ArrayList<Book>();
+
     void checkout(Book book){
-        System.out.println("Thank you! Enjoy the book");
+        if (availableBooks.contains(book)) {
+            System.out.println("Thank you! Enjoy the book");
+        }
+        else {
+            System.out.println("That book is not available.");
+        }
     }
 }
 
