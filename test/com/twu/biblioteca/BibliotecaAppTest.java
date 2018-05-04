@@ -57,6 +57,19 @@ public class BibliotecaAppTest {
         systemInMock.provideLines("quit");
         String input = BibliotecaApp.getInput();
         BibliotecaApp.useInput(input);
+    }
 
+    @Test
+    public void testTyping1ListsBooks() {
+        systemInMock.provideLines("1");
+        BibliotecaApp.useInput(BibliotecaApp.getInput());
+        assertEquals("Booklist\n", systemOutRule.getLog());
+    }
+
+    @Test
+    public void testInvalidOption() {
+        systemInMock.provideLines("foo");
+        BibliotecaApp.useInput(BibliotecaApp.getInput());
+        assertEquals("Select a valid option!\n", systemOutRule.getLog());
     }
 }

@@ -24,9 +24,15 @@ public class BibliotecaApp {
         if (words.equals("quit")) {
             quit();
         }
+        else if (words.equals("1")) {
+            System.out.println("Booklist");
+        }
+        else {
+            System.out.println("Select a valid option!");
+        }
     }
 
-    public static String getInput() {
+    static String getInput() {
         Scanner scanner = new Scanner(System.in);
         return scanner.next();
     }
