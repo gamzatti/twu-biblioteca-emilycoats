@@ -21,6 +21,7 @@ public class BibliotecaAppTest {
     public final ExpectedSystemExit exit = ExpectedSystemExit.none();
 
 
+
     @Test
     public void testWelcomePrints() {
         BibliotecaApp.welcome();
@@ -71,5 +72,13 @@ public class BibliotecaAppTest {
         systemInMock.provideLines("foo");
         BibliotecaApp.useInput(BibliotecaApp.getInput());
         assertEquals("Select a valid option!\n", systemOutRule.getLog());
+    }
+
+    @Test
+    public void testAppStarts() {
+        systemInMock.provideLines("1");
+        BibliotecaApp.main(new String[0]);
+        String expected = "Welcome to Biblioteca\nMain menu. Select from the options below. \n 1. List books\nBooklist\n";
+        assertEquals(expected, systemOutRule.getLog());
     }
 }

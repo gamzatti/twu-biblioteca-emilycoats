@@ -9,7 +9,15 @@ public class BibliotecaApp {
     private final static String MENU = "Main menu. Select from the options below. \n 1. List books";
     private final static String INVALID = "Select a valid option!";
 
-    public static void main(String[] args){}
+    public static void main(String[] args){
+        start();
+    }
+
+    static void start() {
+        System.out.print(WELCOME);
+        System.out.println(MENU);
+        useInput(getInput());
+    }
 
     static String welcome() {
         String message = WELCOME;
