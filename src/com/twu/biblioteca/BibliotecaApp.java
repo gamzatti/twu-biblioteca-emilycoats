@@ -9,6 +9,7 @@ public class BibliotecaApp {
     private final static String WELCOME = "Welcome to Biblioteca\n";
     private final static String MENU = "Main menu. Select from the options below. \n 1. List books";
     private final static String INVALID = "Select a valid option!";
+    static Library library = new Library();
 
     public static void main(String[] args){
         start();
@@ -36,6 +37,7 @@ public class BibliotecaApp {
         }
         else if (words.equals("1")) {
             System.out.println("Booklist");
+            listBooks(library);
         }
         else {
             System.out.println(INVALID);
@@ -54,19 +56,13 @@ public class BibliotecaApp {
         return message;
 
     }
-}
 
-class Library {
-    ArrayList<Book> availableBooks = new ArrayList<Book>();
-
-    void checkout(Book book){
-        if (availableBooks.contains(book)) {
-            System.out.println("Thank you! Enjoy the book");
-        }
-        else {
-            System.out.println("That book is not available.");
+    static void listBooks(Library library) {
+        for (int i=0; i<library.availableBooks.size(); i++) {
+            Book b =library.availableBooks.get(i);
+            System.out.println(String.format("%d. %s", i+1, b.name));
         }
     }
 }
 
-class Book {}
+
