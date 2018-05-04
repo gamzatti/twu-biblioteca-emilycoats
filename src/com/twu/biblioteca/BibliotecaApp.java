@@ -37,7 +37,7 @@ public class BibliotecaApp {
         }
         else if (words.equals("1")) {
             System.out.println("Booklist");
-            listBooks(library);
+            listBooks();
         }
         else {
             System.out.println(INVALID);
@@ -59,12 +59,22 @@ public class BibliotecaApp {
 
     }
 
-    static void listBooks(Library library) {
+    static void listBooks() {
         for (int i=0; i<library.availableBooks.size(); i++) {
             Book b =library.availableBooks.get(i);
             System.out.println(String.format("%d. %s", i+1, b.name));
         }
+        listenForCheckout();
+
     }
+
+    static void listenForCheckout(){
+        Scanner scanner = new Scanner(System.in);
+        int bookIndex = scanner.nextInt() - 1;
+        Book book = library.availableBooks.get(bookIndex);
+        library.checkout(book);
+    }
+
 }
 
 

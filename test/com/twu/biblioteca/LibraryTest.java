@@ -53,8 +53,9 @@ public class LibraryTest {
 
     @Test
     public void testListBooks(){
-        Library l = new Library();
-        BibliotecaApp.listBooks(l);
-        assertEquals("1. Book1\n2. Book2\n3. Book3\n", systemOutRule.getLog());
+        systemInMock.provideLines("1");
+        BibliotecaApp.listBooks();
+        assertEquals("1. Book1\n2. Book2\n3. Book3\nThank you! Enjoy the book\n", systemOutRule.getLog());
     }
+
 }
