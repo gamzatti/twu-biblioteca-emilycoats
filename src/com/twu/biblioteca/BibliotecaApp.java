@@ -43,6 +43,8 @@ public class BibliotecaApp {
             System.out.println(INVALID);
             useInput(getInput());
         }
+//        menu();
+//        useInput(getInput());
     }
 
     static String getInput() {

@@ -54,12 +54,12 @@ public class BibliotecaAppTest {
     @Test
     public void testTyping1ListsFullBookList() {
         Library l = new Library();
-        Book b = new Book("Great Book");
-        l.availableBooks.add(b);
+//        Book b = new Book("Great Book");
+//        l.availableBooks.add(b);
         BibliotecaApp.library = l;
         systemInMock.provideLines("1");
         BibliotecaApp.useInput(BibliotecaApp.getInput());
-        assertEquals("Booklist\n1. Great Book\n", systemOutRule.getLog());
+        assertEquals("Booklist\n1. Book1\n2. Book2\n3. Book3\n", systemOutRule.getLog());
 
     }
 
@@ -75,7 +75,8 @@ public class BibliotecaAppTest {
     public void testAppStarts() {
         systemInMock.provideLines("1");
         BibliotecaApp.main(new String[0]);
-        String expected = "Welcome to Biblioteca\nMain menu. Select from the options below. \n 1. List books\nBooklist\n";
+        String expected = "Welcome to Biblioteca\nMain menu. Select from the options below. \n 1. List books\n" +
+                "Booklist\n1. Book1\n2. Book2\n3. Book3\n";
         assertEquals(expected, systemOutRule.getLog());
     }
 

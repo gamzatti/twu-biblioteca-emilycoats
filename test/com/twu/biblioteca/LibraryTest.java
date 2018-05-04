@@ -33,6 +33,17 @@ public class LibraryTest {
     }
 
     @Test
+    public void testBookIsRemovedFromAvailableBooksAfterCheckout() {
+        Library l = new Library();
+        Book b = new Book("book");
+        l.availableBooks.add(b);
+        l.checkout(b);
+        l.checkout(b);
+        assertEquals("Thank you! Enjoy the book\nThat book is not available.\n", systemOutRule.getLog());
+
+    }
+
+    @Test
     public void testUnsuccessfulCheckout(){
         Library l = new Library();
         Book b = new Book("book");
@@ -43,10 +54,6 @@ public class LibraryTest {
     @Test
     public void testListBooks(){
         Library l = new Library();
-        Book b1 = new Book("Book1");
-        Book b2 = new Book("Book2");
-        Book b3 = new Book("Book3");
-        l.availableBooks.addAll(Arrays.asList(b1, b2, b3));
         BibliotecaApp.listBooks(l);
         assertEquals("1. Book1\n2. Book2\n3. Book3\n", systemOutRule.getLog());
     }
