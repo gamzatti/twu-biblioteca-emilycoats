@@ -7,6 +7,7 @@ import java.util.Scanner;
 public class BibliotecaApp {
     private final static String WELCOME = "Welcome to Biblioteca\n";
     private final static String MENU = "Main menu. Select from the options below. \n 1. List books";
+    private final static String INVALID = "Select a valid option!";
 
     public static void main(String[] args){}
 
@@ -28,7 +29,7 @@ public class BibliotecaApp {
             System.out.println("Booklist");
         }
         else {
-            System.out.println("Select a valid option!");
+            System.out.println(INVALID);
         }
     }
 
