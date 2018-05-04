@@ -38,6 +38,7 @@ public class BibliotecaApp {
         }
         else {
             System.out.println(INVALID);
+            useInput(getInput());
         }
     }
 

@@ -43,7 +43,7 @@ public class BibliotecaAppTest {
 
     @Test
     public void testOtherInputDoesNotExit() {
-        BibliotecaApp.useInput("foo");
+        BibliotecaApp.useInput("1");
     }
 
     @Test
@@ -69,9 +69,10 @@ public class BibliotecaAppTest {
 
     @Test
     public void testInvalidOption() {
-        systemInMock.provideLines("foo");
+        systemInMock.provideLines("foo", "1");
         BibliotecaApp.useInput(BibliotecaApp.getInput());
-        assertEquals("Select a valid option!\n", systemOutRule.getLog());
+        assertEquals("Select a valid option!\nBooklist\n",
+                systemOutRule.getLog());
     }
 
     @Test
