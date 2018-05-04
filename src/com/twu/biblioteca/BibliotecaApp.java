@@ -55,3 +55,10 @@ public class BibliotecaApp {
     }
 }
 
+class Library {
+    void checkout(Book book){
+        System.out.println("Thank you! Enjoy the book");
+    }
+}
+
+class Book {}

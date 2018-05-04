@@ -35,22 +35,6 @@ public class BibliotecaAppTest {
         assertEquals(menuExpected, systemOutRule.getLog());
     }
 
-    @Test
-    public void testInputQuitCausesExit() {
-        exit.expectSystemExit();
-        BibliotecaApp.useInput("quit");
-    }
-
-    @Test
-    public void testOtherInputDoesNotExit() {
-        BibliotecaApp.useInput("1");
-    }
-
-    @Test
-    public void testTyping() {
-        systemInMock.provideLines("foo");
-        assertEquals("foo", BibliotecaApp.getInput());
-    }
 
     @Test
     public void testTypingQuitCausesExit() {
@@ -81,5 +65,13 @@ public class BibliotecaAppTest {
         BibliotecaApp.main(new String[0]);
         String expected = "Welcome to Biblioteca\nMain menu. Select from the options below. \n 1. List books\nBooklist\n";
         assertEquals(expected, systemOutRule.getLog());
+    }
+
+    @Test
+    public void testSuccessfulCheckout(){
+        Library l = new Library();
+        Book b = new Book();
+        l.checkout(b);
+        assertEquals("Thank you! Enjoy the book\n", systemOutRule.getLog());
     }
 }
