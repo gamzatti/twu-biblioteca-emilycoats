@@ -5,6 +5,9 @@ import java.util.Arrays;
 
 class Library {
     ArrayList<Book> availableBooks;
+    final static String SUCCESSFUL =  "Thank you! Enjoy the book.\n";
+    final static String UNSUCCESSFUL =  "That book is not available.\n";
+
 
     Library () {
         availableBooks = new ArrayList<Book>();
@@ -17,11 +20,11 @@ class Library {
 
     void checkout(Book book){
         if (availableBooks.contains(book)) {
-            System.out.println("Thank you! Enjoy the book");
+            System.out.print(SUCCESSFUL);
             availableBooks.remove(book);
         }
         else {
-            System.out.println("That book is not available.");
+            System.out.print(UNSUCCESSFUL);
         }
     }
 }

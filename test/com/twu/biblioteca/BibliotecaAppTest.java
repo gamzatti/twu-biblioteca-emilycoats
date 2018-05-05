@@ -2,11 +2,14 @@ package com.twu.biblioteca;
 
 import org.junit.Rule;
 import org.junit.Test;
+
 import static org.junit.Assert.*;
 import static org.junit.contrib.java.lang.system.TextFromStandardInputStream.*;
 import org.junit.contrib.java.lang.system.ExpectedSystemExit;
 import org.junit.contrib.java.lang.system.SystemOutRule;
 import org.junit.contrib.java.lang.system.TextFromStandardInputStream;
+
+import java.util.NoSuchElementException;
 
 
 public class BibliotecaAppTest {
@@ -20,21 +23,18 @@ public class BibliotecaAppTest {
     @Rule
     public final ExpectedSystemExit exit = ExpectedSystemExit.none();
 
-
-
     @Test
     public void testWelcomePrints() {
         BibliotecaApp.welcome();
-        assertEquals("Welcome to Biblioteca\n", systemOutRule.getLog());
+        assertEquals(BibliotecaApp.WELCOME, systemOutRule.getLog());
     }
 
     @Test
     public void testMenuPrints() {
-        String menuExpected = "Main menu. Select from the options below. \n 1. List books\n";
+        String menuExpected = BibliotecaApp.MENU;
         BibliotecaApp.menu();
         assertEquals(menuExpected, systemOutRule.getLog());
     }
-
 
     @Test
     public void testTypingQuitCausesExit() {
@@ -45,43 +45,36 @@ public class BibliotecaAppTest {
     }
 
     @Test
-    public void testTyping1ListsBooks() {
+    public void testTyping1ShowsBookList() {
         systemInMock.provideLines("1");
-        BibliotecaApp.useInput(BibliotecaApp.getInput());
-        assertEquals("Booklist\n", systemOutRule.getLog().substring(0,9));
-    }
-
-    @Test
-    public void testTyping1ListsFullBookList() {
-        systemInMock.provideLines("1");
-        BibliotecaApp.useInput(BibliotecaApp.getInput());
-        assertEquals("Booklist\n1. Book1\n2. Book2\n3. Book3\n", systemOutRule.getLog());
-
+        try { BibliotecaApp.useInput(BibliotecaApp.getInput()); }
+        catch (NoSuchElementException e ) {}
+        String expected = BibliotecaApp.BOOKLIST +"1. Book1\n2. Book2\n3. Book3\n";
+        assertEquals(expected, systemOutRule.getLog());
     }
 
     @Test
     public void testInvalidOption() {
-        systemInMock.provideLines("foo", "1");
-        BibliotecaApp.useInput(BibliotecaApp.getInput());
-        assertEquals("Select a valid option!\nBooklist\n",
-                systemOutRule.getLog().substring(0,32));
+        systemInMock.provideLines("foo");
+        try { BibliotecaApp.useInput(BibliotecaApp.getInput()); }
+        catch (NoSuchElementException e) {}
+        assertEquals(BibliotecaApp.INVALID, systemOutRule.getLog());
     }
 
     @Test
     public void testAppStarts() {
-        systemInMock.provideLines("1");
-        BibliotecaApp.main(new String[0]);
-        String expected = "Welcome to Biblioteca\nMain menu. Select from the options below. \n 1. List books\n" +
-                "Booklist\n1. Book1\n2. Book2\n3. Book3\n";
+        try { BibliotecaApp.main(new String[0]); }
+        catch (NoSuchElementException e) {}
+        String expected = BibliotecaApp.WELCOME + BibliotecaApp.MENU;
         assertEquals(expected, systemOutRule.getLog());
     }
 
     @Test
     public void testBooksCanBeBorrowed(){
-        BibliotecaApp.listBooks();
         systemInMock.provideLines("1");
-        assertEquals("Booklist\n1. Book1\n2. Book2\n3. Book3\nThank you! Enjoy the book\n", systemOutRule.getLog());
-
+        BibliotecaApp.listBooks();
+        String expected = BibliotecaApp.BOOKLIST + "1. Book1\n2. Book2\n3. Book3\n"+Library.SUCCESSFUL;
+        assertEquals(expected, systemOutRule.getLog());
     }
 
 }

@@ -1,14 +1,12 @@
 package com.twu.biblioteca;
 
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class BibliotecaApp {
-    private final static String WELCOME = "Welcome to Biblioteca\n";
-    private final static String MENU = "Main menu. Select from the options below. \n 1. List books";
-    private final static String INVALID = "Select a valid option!";
+    final static String WELCOME = "Welcome to Biblioteca\n";
+    final static String MENU = "Main menu. Select from the options below. \n 1. List books\n";
+    final static String INVALID = "Select a valid option!\n";
+    final static String BOOKLIST = "Please select from the following available books\n";
     static Library library = new Library();
 
     public static void main(String[] args){
@@ -17,7 +15,7 @@ public class BibliotecaApp {
 
     private static void start() {
         System.out.print(WELCOME);
-        System.out.println(MENU);
+        System.out.print(MENU);
         useInput(getInput());
     }
 
@@ -36,15 +34,15 @@ public class BibliotecaApp {
             quit();
         }
         else if (words.equals("1")) {
-            System.out.println("Booklist");
+
             listBooks();
         }
         else {
-            System.out.println(INVALID);
+            System.out.print(INVALID);
             useInput(getInput());
         }
-//        menu();
-//        useInput(getInput());
+        menu();
+        useInput(getInput());
     }
 
     static String getInput() {
@@ -54,21 +52,21 @@ public class BibliotecaApp {
 
     static String menu() {
         String message = MENU;
-        System.out.println(message);
+        System.out.print(message);
         return message;
 
     }
 
     static void listBooks() {
+        System.out.print(BOOKLIST);
         for (int i=0; i<library.availableBooks.size(); i++) {
             Book b =library.availableBooks.get(i);
             System.out.println(String.format("%d. %s", i+1, b.name));
         }
         listenForCheckout();
-
     }
 
-    static void listenForCheckout(){
+    private static void listenForCheckout(){
         Scanner scanner = new Scanner(System.in);
         int bookIndex = scanner.nextInt() - 1;
         Book book = library.availableBooks.get(bookIndex);
