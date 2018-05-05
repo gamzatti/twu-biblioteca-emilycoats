@@ -1,6 +1,5 @@
 package com.twu.biblioteca;
 
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class BibliotecaApp {
@@ -21,14 +20,12 @@ public class BibliotecaApp {
 
     static void mainMenu() {
         System.out.print(MAIN_MENU);
-        useInput(getInput());
+        respondToMainMenuSelection();
     }
 
-    private static void quit() {
-        System.exit(0);
-    }
-
-    static void useInput(String words) {
+    static void respondToMainMenuSelection() {
+        Scanner scanner = new Scanner(System.in);
+        String words = scanner.next();
         if (words.equals("quit")) {
             quit();
         }
@@ -37,26 +34,24 @@ public class BibliotecaApp {
         }
         else {
             System.out.print(INVALID);
-            useInput(getInput());
+            respondToMainMenuSelection();
         }
         mainMenu();
     }
 
-    static String getInput() {
-        Scanner scanner = new Scanner(System.in);
-        return scanner.next();
+    private static void quit() {
+        System.exit(0);
     }
-
 
     static void listBooks() {
         System.out.print(BORROWING_INSTRUCTIONS);
         for (Book b : library.availableBooks) {
             System.out.println(String.format("%d. %s", b.number, b.name));
         }
-        listenForCheckout();
+        respondToBookSelection();
     }
 
-    private static void listenForCheckout(){
+    private static void respondToBookSelection(){
         Scanner scanner = new Scanner(System.in);
         if (scanner.hasNextInt()) {
             int chosenNumber = scanner.nextInt();
@@ -73,7 +68,7 @@ public class BibliotecaApp {
         }
         else {
             System.out.print(INVALID);
-            listenForCheckout();
+            respondToBookSelection();
         }
     }
 

@@ -11,6 +11,7 @@ import org.junit.contrib.java.lang.system.SystemOutRule;
 import org.junit.contrib.java.lang.system.TextFromStandardInputStream;
 
 import java.util.NoSuchElementException;
+import java.util.Scanner;
 
 
 public class BibliotecaAppTest {
@@ -37,14 +38,15 @@ public class BibliotecaAppTest {
     public void testTypingQuitCausesExit() {
         exit.expectSystemExit();
         systemInMock.provideLines("quit");
-        String input = BibliotecaApp.getInput();
-        BibliotecaApp.useInput(input);
+        BibliotecaApp.respondToMainMenuSelection();
     }
 
     @Test
     public void testTyping1ShowsBookList() {
         systemInMock.provideLines("1");
-        try { BibliotecaApp.useInput(BibliotecaApp.getInput()); }
+        try {
+            Scanner scanner = new Scanner(System.in);
+            BibliotecaApp.respondToMainMenuSelection(); }
         catch (NoSuchElementException e ) {}
         String expected = BibliotecaApp.BORROWING_INSTRUCTIONS +"1. Book1\n2. Book2\n3. Book3\n";
         assertEquals(expected, systemOutRule.getLog());
@@ -53,7 +55,9 @@ public class BibliotecaAppTest {
     @Test
     public void testInvalidOption() {
         systemInMock.provideLines("foo");
-        try { BibliotecaApp.useInput(BibliotecaApp.getInput()); }
+        try {
+            Scanner scanner = new Scanner(System.in);
+            BibliotecaApp.respondToMainMenuSelection(); }
         catch (NoSuchElementException e) {}
         assertEquals(BibliotecaApp.INVALID, systemOutRule.getLog());
     }

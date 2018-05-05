@@ -48,6 +48,17 @@ public class LibraryTest {
         assertEquals(Library.UNSUCCESSFUL, systemOutRule.getLog());
     }
 
+    @Test
+    public void testSuccessfulReturn(){
+        Library l = new Library();
+        Book b = new Book("Head First Java", 0);
+        l.returnBook(b);
+        assertEquals(Library.SUCCESSFUL_RETURN,systemOutRule.getLog());
+        assertTrue(l.availableBooks.contains(b));
+    }
+
+
+
     @After
     public void restoreBooksToLibrary() {
         BibliotecaApp.library = new Library();

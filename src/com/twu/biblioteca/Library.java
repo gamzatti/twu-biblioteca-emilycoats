@@ -7,7 +7,7 @@ class Library {
     ArrayList<Book> availableBooks;
     final static String SUCCESSFUL =  "Thank you! Enjoy the book.\n";
     final static String UNSUCCESSFUL =  "That book is not available.\n";
-
+    final static String SUCCESSFUL_RETURN = "Thank you, your book has been returned.\n";
 
     Library () {
         availableBooks = new ArrayList<Book>();
@@ -26,5 +26,10 @@ class Library {
         else {
             System.out.print(UNSUCCESSFUL);
         }
+    }
+
+    void returnBook(Book book) {
+        availableBooks.add(book);
+        System.out.print(SUCCESSFUL_RETURN);
     }
 }
