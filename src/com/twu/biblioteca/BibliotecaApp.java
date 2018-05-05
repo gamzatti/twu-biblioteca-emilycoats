@@ -1,12 +1,13 @@
 package com.twu.biblioteca;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class BibliotecaApp {
-    final static String WELCOME = "Welcome to Biblioteca\n";
-    final static String MENU = "Main menu. Select from the options below. \n 1. List books\n";
+    final static String WELCOME = "Welcome to Biblioteca\nType 'quit' at any time to exit the program\n";
+    final static String MAIN_MENU = "Main Menu. Select from the options below. \n 1. List available books\n";
     final static String INVALID = "Select a valid option!\n";
-    final static String BOOKLIST = "Please select from the following available books\n";
+    final static String BORROWING_INSTRUCTIONS = "To borrow a book, please select its number from the list below.\n";
     static Library library = new Library();
 
     public static void main(String[] args){
@@ -15,14 +16,12 @@ public class BibliotecaApp {
 
     private static void start() {
         System.out.print(WELCOME);
-        System.out.print(MENU);
-        useInput(getInput());
+        mainMenu();
     }
 
-    static String welcome() {
-        String message = WELCOME;
-        System.out.print(message);
-        return message;
+    static void mainMenu() {
+        System.out.print(MAIN_MENU);
+        useInput(getInput());
     }
 
     private static void quit() {
@@ -34,15 +33,13 @@ public class BibliotecaApp {
             quit();
         }
         else if (words.equals("1")) {
-
             listBooks();
         }
         else {
             System.out.print(INVALID);
             useInput(getInput());
         }
-        menu();
-        useInput(getInput());
+        mainMenu();
     }
 
     static String getInput() {
@@ -50,27 +47,25 @@ public class BibliotecaApp {
         return scanner.next();
     }
 
-    static String menu() {
-        String message = MENU;
-        System.out.print(message);
-        return message;
-
-    }
 
     static void listBooks() {
-        System.out.print(BOOKLIST);
-        for (int i=0; i<library.availableBooks.size(); i++) {
-            Book b =library.availableBooks.get(i);
-            System.out.println(String.format("%d. %s", i+1, b.name));
+        System.out.print(BORROWING_INSTRUCTIONS);
+        for (Book b : library.availableBooks) {
+            System.out.println(String.format("%d. %s", b.number, b.name));
         }
         listenForCheckout();
     }
 
     private static void listenForCheckout(){
         Scanner scanner = new Scanner(System.in);
-        int bookIndex = scanner.nextInt() - 1;
-        Book book = library.availableBooks.get(bookIndex);
-        library.checkout(book);
+        int chosenNumber = scanner.nextInt();
+        Book selectedBook = null;
+        for (Book b : library.availableBooks) {
+            if (b.number == chosenNumber) {
+                selectedBook = b;
+            }
+        }
+        library.checkout(selectedBook);
     }
 
 }

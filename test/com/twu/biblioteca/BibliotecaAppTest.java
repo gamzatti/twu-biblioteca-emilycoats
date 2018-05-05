@@ -24,17 +24,13 @@ public class BibliotecaAppTest {
     public final ExpectedSystemExit exit = ExpectedSystemExit.none();
 
     @Test
-    public void testWelcomePrints() {
-        BibliotecaApp.welcome();
-        assertEquals(BibliotecaApp.WELCOME, systemOutRule.getLog());
+    public void testAppStarts() {
+        try { BibliotecaApp.main(new String[0]); }
+        catch (NoSuchElementException e) {}
+        String expected = BibliotecaApp.WELCOME + BibliotecaApp.MAIN_MENU;
+        assertEquals(expected, systemOutRule.getLog());
     }
 
-    @Test
-    public void testMenuPrints() {
-        String menuExpected = BibliotecaApp.MENU;
-        BibliotecaApp.menu();
-        assertEquals(menuExpected, systemOutRule.getLog());
-    }
 
     @Test
     public void testTypingQuitCausesExit() {
@@ -49,7 +45,7 @@ public class BibliotecaAppTest {
         systemInMock.provideLines("1");
         try { BibliotecaApp.useInput(BibliotecaApp.getInput()); }
         catch (NoSuchElementException e ) {}
-        String expected = BibliotecaApp.BOOKLIST +"1. Book1\n2. Book2\n3. Book3\n";
+        String expected = BibliotecaApp.BORROWING_INSTRUCTIONS +"1. Book1\n2. Book2\n3. Book3\n";
         assertEquals(expected, systemOutRule.getLog());
     }
 
@@ -61,20 +57,15 @@ public class BibliotecaAppTest {
         assertEquals(BibliotecaApp.INVALID, systemOutRule.getLog());
     }
 
-    @Test
-    public void testAppStarts() {
-        try { BibliotecaApp.main(new String[0]); }
-        catch (NoSuchElementException e) {}
-        String expected = BibliotecaApp.WELCOME + BibliotecaApp.MENU;
-        assertEquals(expected, systemOutRule.getLog());
-    }
 
     @Test
     public void testBooksCanBeBorrowed(){
         systemInMock.provideLines("1");
         BibliotecaApp.listBooks();
-        String expected = BibliotecaApp.BOOKLIST + "1. Book1\n2. Book2\n3. Book3\n"+Library.SUCCESSFUL;
+        String expected = BibliotecaApp.BORROWING_INSTRUCTIONS + "1. Book1\n2. Book2\n3. Book3\n"+Library.SUCCESSFUL;
         assertEquals(expected, systemOutRule.getLog());
     }
 
+//    @Test
+//    public void
 }

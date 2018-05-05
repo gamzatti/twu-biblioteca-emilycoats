@@ -11,9 +11,9 @@ class Library {
 
     Library () {
         availableBooks = new ArrayList<Book>();
-        Book b1 = new Book("Book1");
-        Book b2 = new Book("Book2");
-        Book b3 = new Book("Book3");
+        Book b1 = new Book("Book1", 1);
+        Book b2 = new Book("Book2", 2);
+        Book b3 = new Book("Book3", 3);
         availableBooks.addAll(Arrays.asList(b1, b2, b3));
 
     }
