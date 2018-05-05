@@ -58,14 +58,23 @@ public class BibliotecaApp {
 
     private static void listenForCheckout(){
         Scanner scanner = new Scanner(System.in);
-        int chosenNumber = scanner.nextInt();
-        Book selectedBook = null;
-        for (Book b : library.availableBooks) {
-            if (b.number == chosenNumber) {
-                selectedBook = b;
+        if (scanner.hasNextInt()) {
+            int chosenNumber = scanner.nextInt();
+            Book selectedBook = null;
+            for (Book b : library.availableBooks) {
+                if (b.number == chosenNumber) {
+                    selectedBook = b;
+                }
             }
+            library.checkout(selectedBook);
         }
-        library.checkout(selectedBook);
+        else if (scanner.next().equals("quit")){
+            quit();
+        }
+        else {
+            System.out.print(INVALID);
+            listenForCheckout();
+        }
     }
 
 }

@@ -1,5 +1,6 @@
 package com.twu.biblioteca;
 
+import org.junit.After;
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -66,6 +67,25 @@ public class BibliotecaAppTest {
         assertEquals(expected, systemOutRule.getLog());
     }
 
-//    @Test
-//    public void
+    @Test
+    public void testQuitFromBookList(){
+        exit.expectSystemExit();
+        systemInMock.provideLines("quit");
+        BibliotecaApp.listBooks();
+
+    }
+
+    @Test
+    public void testInvalidBookSelection(){
+        systemInMock.provideLines("foo");
+        try {BibliotecaApp.listBooks();}
+        catch (NoSuchElementException e) {}
+        String expected = BibliotecaApp.BORROWING_INSTRUCTIONS + "1. Book1\n2. Book2\n3. Book3\n"+BibliotecaApp.INVALID;
+        assertEquals(expected, systemOutRule.getLog());
+    }
+
+    @After
+    public void restoreBooksToLibrary() {
+        BibliotecaApp.library = new Library();
+    }
 }
