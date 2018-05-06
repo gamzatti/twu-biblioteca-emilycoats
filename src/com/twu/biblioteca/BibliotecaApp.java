@@ -1,7 +1,5 @@
 package com.twu.biblioteca;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.Scanner;
 
 public class BibliotecaApp {
@@ -10,7 +8,7 @@ public class BibliotecaApp {
     final static String INVALID = "Select a valid option!\n";
     final static String BORROWING_INSTRUCTIONS = "To borrow a book, please select its number from the list below, " +
             "or select R to return a book.\n";
-    final static String RETURN_BOOK = "R. Return book\n";
+    private final static String RETURN_BOOK = "R. Return book\n";
     static Library library = new Library();
 
     public static void main(String[] args){
@@ -22,7 +20,7 @@ public class BibliotecaApp {
         mainMenu();
     }
 
-    static void mainMenu() {
+    private static void mainMenu() {
         System.out.print(MAIN_MENU);
         respondToMainMenuSelection();
     }
@@ -54,7 +52,7 @@ public class BibliotecaApp {
         respondToBookSelection();
     }
 
-    static void listCheckedOutBooks() {
+    private static void listCheckedOutBooks() {
         library.showBooks(library.checkedOutBooks);
     }
 
