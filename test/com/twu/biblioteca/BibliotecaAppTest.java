@@ -67,7 +67,7 @@ public class BibliotecaAppTest {
     @Test
     public void testBooksCanBeBorrowed(){
         systemInMock.provideLines("1");
-        BibliotecaApp.listBooks();
+        BibliotecaApp.listAvailableBooks();
         String expected = BibliotecaApp.BORROWING_INSTRUCTIONS + SAMPLE_BOOKLIST +Library.SUCCESSFUL;
         assertEquals(expected, systemOutRule.getLog());
     }
@@ -76,14 +76,14 @@ public class BibliotecaAppTest {
     public void testQuitFromBookList(){
         exit.expectSystemExit();
         systemInMock.provideLines("quit");
-        BibliotecaApp.listBooks();
+        BibliotecaApp.listAvailableBooks();
 
     }
 
     @Test
     public void testInvalidBookSelection(){
         systemInMock.provideLines("foo");
-        try {BibliotecaApp.listBooks();}
+        try {BibliotecaApp.listAvailableBooks();}
         catch (NoSuchElementException e) {}
         String expected = BibliotecaApp.BORROWING_INSTRUCTIONS + SAMPLE_BOOKLIST +BibliotecaApp.INVALID;
         assertEquals(expected, systemOutRule.getLog());
@@ -91,7 +91,7 @@ public class BibliotecaAppTest {
 
     @Test
     public void testReturnOptionOnBookList() {
-        try {BibliotecaApp.listBooks();}
+        try {BibliotecaApp.listAvailableBooks();}
         catch (NoSuchElementException e) {}
         String expected = BibliotecaApp.BORROWING_INSTRUCTIONS + SAMPLE_BOOKLIST;
         assertEquals(expected, systemOutRule.getLog());
@@ -105,7 +105,7 @@ public class BibliotecaAppTest {
         l.checkedOutBooks.add(b);
         String expected = BibliotecaApp.BORROWING_INSTRUCTIONS + SAMPLE_BOOKLIST +
                 "Type the number of the book you wish to return\n0. The Agile Samurai\n" + Library.SUCCESSFUL_RETURN;
-        try {BibliotecaApp.listBooks();}
+        try {BibliotecaApp.listAvailableBooks();}
         catch (NoSuchElementException e ){}
         assertEquals(expected, systemOutRule.getLog());
 

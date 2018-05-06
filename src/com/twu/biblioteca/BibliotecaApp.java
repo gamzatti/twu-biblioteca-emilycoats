@@ -1,5 +1,7 @@
 package com.twu.biblioteca;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Scanner;
 
 public class BibliotecaApp {
@@ -27,12 +29,12 @@ public class BibliotecaApp {
 
     static void respondToMainMenuSelection() {
         Scanner scanner = new Scanner(System.in);
-        String words = scanner.next();
-        if (words.equals("quit")) {
+        String line = scanner.next();
+        if (line.equals("quit")) {
             quit();
         }
-        else if (words.equals("1")) {
-            listBooks();
+        else if (line.equals("1")) {
+            listAvailableBooks();
         }
         else {
             System.out.print(INVALID);
@@ -45,50 +47,50 @@ public class BibliotecaApp {
         System.exit(0);
     }
 
-    static void listBooks() {
+    static void listAvailableBooks() {
         System.out.print(BORROWING_INSTRUCTIONS);
-        for (Book b : library.availableBooks) {
-            System.out.println(String.format("%d. %s", b.number, b.name));
-        }
+        library.showBooks(library.availableBooks);
         System.out.print(RETURN_BOOK);
         respondToBookSelection();
     }
 
     static void listCheckedOutBooks() {
-        for (Book b : library.checkedOutBooks) {
-            System.out.println(String.format("%d. %s", b.number, b.name));
-        }
-
+        library.showBooks(library.checkedOutBooks);
     }
+
     private static void respondToBookSelection(){
         Scanner scanner = new Scanner(System.in);
         if (scanner.hasNextInt()) {
             int chosenNumber = scanner.nextInt();
-            Book selectedBook = library.getBook(chosenNumber, library.availableBooks);
-            library.checkout(selectedBook);
+            library.findAndCheckoutBook(chosenNumber);
         }
         else {
             String line = scanner.next();
             if (line.equals("R")) {
-                System.out.print("Type the number of the book you wish to return\n");
-                listCheckedOutBooks();
-                if (scanner.hasNextInt()) {
-                    int chosenNumber = scanner.nextInt();
-                    Book selectedBook = library.getBook(chosenNumber, library.checkedOutBooks);
-                    library.returnBook(selectedBook);
-                }
-                else if (line.equals("quit")) {
-                    quit();
-                } else {
-                    System.out.print(INVALID);
-//                    respondToReturnBookSelection();
-                }
+                respondToReturnBookSelection(scanner);
             } else if (line.equals("quit")) {
                 quit();
             } else {
                 System.out.print(INVALID);
                 respondToBookSelection();
             }
+        }
+    }
+
+    private static void respondToReturnBookSelection(Scanner scanner) {
+        System.out.print("Type the number of the book you wish to return\n");
+        listCheckedOutBooks();
+        if (scanner.hasNextInt()) {
+            int chosenNumber = scanner.nextInt();
+            library.findAndReturnBook(chosenNumber);
+        }
+        else if (scanner.next().equals("quit")) {
+            quit();
+        } else {
+            System.out.print(INVALID);
+            scanner = new Scanner(System.in);
+            BibliotecaApp bib = new BibliotecaApp();
+            respondToReturnBookSelection(scanner);
         }
     }
 

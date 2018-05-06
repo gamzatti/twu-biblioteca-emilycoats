@@ -22,6 +22,22 @@ class Library {
 
     }
 
+    void findAndReturnBook(int chosenNumber) {
+        Book selectedBook = getBook(chosenNumber, checkedOutBooks);
+        BibliotecaApp.library.returnBook(selectedBook);
+    }
+
+    void findAndCheckoutBook(int chosenNumber) {
+        Book selectedBook = getBook(chosenNumber, availableBooks);
+        checkout(selectedBook);
+    }
+
+    void showBooks(ArrayList<Book> bookList) {
+        for (Book b : bookList) {
+            System.out.println(String.format("%d. %s", b.number, b.name));
+        }
+    }
+
     Book getBook(int chosenNumber, ArrayList<Book> bookList) {
         Book selectedBook = null;
         for (Book b : bookList) {
