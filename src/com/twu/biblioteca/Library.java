@@ -6,8 +6,8 @@ import java.util.Arrays;
 class Library {
     ArrayList<Book> availableBooks;
     ArrayList<Book> checkedOutBooks;
-    final static String SUCCESSFUL =  "Thank you! Enjoy the book.\n";
-    final static String UNSUCCESSFUL =  "That book is not available.\n";
+    final static String SUCCESSFUL_CHECKOUT =  "Thank you! Enjoy the book.\n";
+    final static String UNSUCCESSFUL_CHECKOUT =  "That book is not available.\n";
     final static String SUCCESSFUL_RETURN = "Thank you for returning the book.\n";
     private final static String UNSUCCESSFUL_RETURN = "That is not a valid book to return.\n";
 
@@ -28,7 +28,7 @@ class Library {
 
     void findAndCheckoutBook(int chosenNumber) {
         Book selectedBook = getBook(chosenNumber, availableBooks);
-        checkout(selectedBook);
+        checkoutBook(selectedBook);
     }
 
     void showBooks(ArrayList<Book> bookList) {
@@ -47,14 +47,14 @@ class Library {
         return selectedBook;
     }
 
-    void checkout(Book book){
+    void checkoutBook(Book book){
         if (availableBooks.contains(book)) {
-            System.out.print(SUCCESSFUL);
+            System.out.print(SUCCESSFUL_CHECKOUT);
             availableBooks.remove(book);
             checkedOutBooks.add(book);
         }
         else {
-            System.out.print(UNSUCCESSFUL);
+            System.out.print(UNSUCCESSFUL_CHECKOUT);
         }
     }
 

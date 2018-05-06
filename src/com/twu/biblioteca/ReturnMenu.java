@@ -1,19 +1,20 @@
 package com.twu.biblioteca;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ReturnMenu extends Menu {
-    Library library;
+    private Library library;
 
     ReturnMenu(Library lib) {
         library = lib;
         instructions = "Type the number of the book you wish to return\n";
+        ArrayList<Book> bookList = library.checkedOutBooks;
     }
 
     public void display() {
-        System.out.print(instructions);
+        super.display();
         library.showBooks(library.checkedOutBooks);
-
     }
 
     public void respondToSelection() {
@@ -22,11 +23,8 @@ public class ReturnMenu extends Menu {
             int chosenNumber = scanner.nextInt();
             library.findAndReturnBook(chosenNumber);
         }
-        else if (scanner.next().equals("quit")) {
-            BibliotecaApp.quit();
-        } else {
-            System.out.print(INVALID);
-            respondToSelection();
+        else {
+            quitOrInvalid(scanner.next());
         }
     }
 }

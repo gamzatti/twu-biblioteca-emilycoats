@@ -1,14 +1,22 @@
 package com.twu.biblioteca;
 
-import java.util.ArrayList;
-
-public class Menu {
+public abstract class Menu {
     final static String INVALID = "Select a valid option!\n";
     String instructions;
-    ArrayList<String> options;
 
-    public void display(){}
-    public void respondToSelection(){
+    public abstract void respondToSelection();
+
+    public void display(){
+        System.out.print(instructions);
+    }
+
+    void quitOrInvalid(String input){
+        if (input.equals("quit")) {
+            BibliotecaApp.quit();
+        } else {
+            System.out.print(INVALID);
+            respondToSelection();
+        }
 
     }
 

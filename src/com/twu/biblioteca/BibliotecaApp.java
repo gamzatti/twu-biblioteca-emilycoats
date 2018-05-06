@@ -5,10 +5,15 @@ class BibliotecaApp {
     static Library library = new Library();
 
     public static void main(String[] args){
-        new BibliotecaApp().start();
+        BibliotecaApp.start();
     }
 
-    private static void mainMenu() {
+    private static void start() {
+        System.out.print(WELCOME);
+        showMainMenu();
+    }
+
+    private static void showMainMenu() {
         MainMenu m = new MainMenu();
         m.display();
         m.respondToSelection();
@@ -18,22 +23,18 @@ class BibliotecaApp {
         System.exit(0);
     }
 
-    static void borrowMenu() {
+    static void showBorrowMenu() {
         BorrowMenu bm = new BorrowMenu(library);
         bm.display();
         bm.respondToSelection();
     }
 
-    static void returnMenu() {
+    static void showReturnMenu() {
         ReturnMenu rm = new ReturnMenu(library);
         rm.display();
         rm.respondToSelection();
     }
 
-    private void start() {
-        System.out.print(WELCOME);
-        mainMenu();
-    }
 }
 
 
