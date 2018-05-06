@@ -4,11 +4,10 @@ import java.util.Scanner;
 
 class BibliotecaApp {
     final static String WELCOME = "Welcome to Biblioteca\nType 'quit' at any time to exit the program\n";
-    final static String MAIN_MENU = "Main Menu. Select from the options below. \n 1. List available books\n";
+    final static String MAIN_MENU = "Main Menu. Select from the options below. \n 1. List available books\n 2. Return a book\n";
     final static String INVALID = "Select a valid option!\n";
-    final static String BORROWING_INSTRUCTIONS = "To borrow a book, please select its number from the list below, " +
-            "or select R to return a book.\n";
-    private final static String RETURN_BOOK = "R. Return book\n";
+    final static String BORROWING_INSTRUCTIONS = "To borrow a book, please select its number from the list below.\n";
+    final static String RETURN_INSTRUCTIONS = "Type the number of the book you wish to return\n";
     static Library library = new Library();
 
     public static void main(String[] args){
@@ -28,11 +27,14 @@ class BibliotecaApp {
     static void respondToMainMenuSelection() {
         Scanner scanner = new Scanner(System.in);
         String line = scanner.next();
-        if (line.equals("quit")) {
-            quit();
+        if (line.equals("1")) {
+            borrowMenu();
         }
-        else if (line.equals("1")) {
-            listAvailableBooks();
+        else if (line.equals("2")) {
+            returnMenu();
+        }
+        else if (line.equals("quit")) {
+            quit();
         }
         else {
             System.out.print(INVALID);
@@ -45,39 +47,34 @@ class BibliotecaApp {
         System.exit(0);
     }
 
-    static void listAvailableBooks() {
+    static void borrowMenu() {
         System.out.print(BORROWING_INSTRUCTIONS);
         library.showBooks(library.availableBooks);
-        System.out.print(RETURN_BOOK);
-        respondToBookSelection();
+        respondToBorrowMenuSelection();
     }
 
-    private static void listCheckedOutBooks() {
-        library.showBooks(library.checkedOutBooks);
-    }
-
-    private static void respondToBookSelection(){
+    private static void respondToBorrowMenuSelection(){
         Scanner scanner = new Scanner(System.in);
         if (scanner.hasNextInt()) {
             int chosenNumber = scanner.nextInt();
             library.findAndCheckoutBook(chosenNumber);
         }
-        else {
-            String line = scanner.next();
-            if (line.equals("R")) {
-                respondToReturnBookSelection(scanner);
-            } else if (line.equals("quit")) {
-                quit();
-            } else {
-                System.out.print(INVALID);
-                respondToBookSelection();
-            }
+        else if (scanner.next().equals("quit")) {
+            quit();
+        } else {
+            System.out.print(INVALID);
+            respondToBorrowMenuSelection();
         }
     }
 
-    private static void respondToReturnBookSelection(Scanner scanner) {
-        System.out.print("Type the number of the book you wish to return\n");
-        listCheckedOutBooks();
+    private static void returnMenu() {
+        System.out.print(RETURN_INSTRUCTIONS);
+        library.showBooks(library.checkedOutBooks);
+        respondToReturnMenuSelection();
+    }
+
+    private static void respondToReturnMenuSelection() {
+        Scanner scanner = new Scanner(System.in);
         if (scanner.hasNextInt()) {
             int chosenNumber = scanner.nextInt();
             library.findAndReturnBook(chosenNumber);
@@ -86,10 +83,10 @@ class BibliotecaApp {
             quit();
         } else {
             System.out.print(INVALID);
-            scanner = new Scanner(System.in);
-            respondToReturnBookSelection(scanner);
+            respondToReturnMenuSelection();
         }
     }
+
 
 }
 
