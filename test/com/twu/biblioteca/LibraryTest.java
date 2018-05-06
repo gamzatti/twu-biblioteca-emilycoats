@@ -52,6 +52,7 @@ public class LibraryTest {
     public void testSuccessfulReturn(){
         Library l = new Library();
         Book b = new Book("Head First Java", 0);
+        l.checkedOutBooks.add(b);
         l.returnBook(b);
         assertEquals(Library.SUCCESSFUL_RETURN,systemOutRule.getLog());
         assertTrue(l.availableBooks.contains(b));
