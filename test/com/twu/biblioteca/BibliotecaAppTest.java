@@ -30,7 +30,8 @@ public class BibliotecaAppTest {
     public void testAppStarts() {
         try { BibliotecaApp.main(new String[0]); }
         catch (NoSuchElementException e) {}
-        String expected = BibliotecaApp.WELCOME + BibliotecaApp.MAIN_MENU;
+        MainMenu m = new MainMenu();
+        String expected = BibliotecaApp.WELCOME + m.instructions;
         assertEquals(expected, systemOutRule.getLog());
     }
 
@@ -39,24 +40,28 @@ public class BibliotecaAppTest {
     public void testTypingQuitCausesExit() {
         exit.expectSystemExit();
         systemInMock.provideLines("quit");
-        BibliotecaApp.respondToMainMenuSelection();
+        MainMenu m = new MainMenu();
+        m.respondToSelection();
     }
 
     @Test
     public void testTyping1ShowsBookList() {
+        MainMenu m = new MainMenu();
         systemInMock.provideLines("1");
-        try { BibliotecaApp.respondToMainMenuSelection(); }
+        try { m.respondToSelection(); }
         catch (NoSuchElementException e ) {}
-        String expected = BibliotecaApp.BORROWING_INSTRUCTIONS + SAMPLE_BOOKLIST;
+        BorrowMenu bm = new BorrowMenu(BibliotecaApp.library);
+        String expected = bm.instructions + SAMPLE_BOOKLIST;
         assertEquals(expected, systemOutRule.getLog());
     }
 
     @Test
     public void testInvalidOption() {
+        MainMenu m = new MainMenu();
         systemInMock.provideLines("foo");
-        try { BibliotecaApp.respondToMainMenuSelection(); }
+        try { m.respondToSelection();}
         catch (NoSuchElementException e) {}
-        assertEquals(BibliotecaApp.INVALID, systemOutRule.getLog());
+        assertEquals(Menu.INVALID, systemOutRule.getLog());
     }
 
 
@@ -64,7 +69,8 @@ public class BibliotecaAppTest {
     public void testBooksCanBeBorrowed(){
         systemInMock.provideLines("1");
         BibliotecaApp.borrowMenu();
-        String expected = BibliotecaApp.BORROWING_INSTRUCTIONS + SAMPLE_BOOKLIST +Library.SUCCESSFUL;
+        BorrowMenu bm = new BorrowMenu(BibliotecaApp.library);
+        String expected = bm.instructions + SAMPLE_BOOKLIST +Library.SUCCESSFUL;
         assertEquals(expected, systemOutRule.getLog());
     }
 
@@ -81,7 +87,8 @@ public class BibliotecaAppTest {
         systemInMock.provideLines("foo");
         try {BibliotecaApp.borrowMenu();}
         catch (NoSuchElementException e) {}
-        String expected = BibliotecaApp.BORROWING_INSTRUCTIONS + SAMPLE_BOOKLIST +BibliotecaApp.INVALID;
+        BorrowMenu bm = new BorrowMenu(BibliotecaApp.library);
+        String expected = bm.instructions + SAMPLE_BOOKLIST + Menu.INVALID;
         assertEquals(expected, systemOutRule.getLog());
     }
 
@@ -89,7 +96,8 @@ public class BibliotecaAppTest {
     public void testReturnOptionOnBookList() {
         try {BibliotecaApp.borrowMenu();}
         catch (NoSuchElementException e) {}
-        String expected = BibliotecaApp.BORROWING_INSTRUCTIONS + SAMPLE_BOOKLIST;
+        BorrowMenu bm = new BorrowMenu(BibliotecaApp.library);
+        String expected = bm.instructions + SAMPLE_BOOKLIST;
         assertEquals(expected, systemOutRule.getLog());
     }
 
@@ -98,9 +106,10 @@ public class BibliotecaAppTest {
         systemInMock.provideLines("2", "0");
         Library l = BibliotecaApp.library;
         Book b = new Book("The Agile Samurai", 0);
+        MainMenu m = new MainMenu();
         l.checkedOutBooks.add(b);
-        String expected = "Type the number of the book you wish to return\n0. The Agile Samurai\n" + Library.SUCCESSFUL_RETURN + BibliotecaApp.MAIN_MENU;
-        try {BibliotecaApp.respondToMainMenuSelection();}
+        String expected = "Type the number of the book you wish to return\n0. The Agile Samurai\n" + Library.SUCCESSFUL_RETURN + m.instructions;
+        try {m.respondToSelection();}
         catch (NoSuchElementException e ){}
         assertEquals(expected, systemOutRule.getLog());
     }
