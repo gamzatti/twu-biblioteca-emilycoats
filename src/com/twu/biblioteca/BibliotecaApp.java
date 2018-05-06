@@ -2,7 +2,7 @@ package com.twu.biblioteca;
 
 import java.util.Scanner;
 
-public class BibliotecaApp {
+class BibliotecaApp {
     final static String WELCOME = "Welcome to Biblioteca\nType 'quit' at any time to exit the program\n";
     final static String MAIN_MENU = "Main Menu. Select from the options below. \n 1. List available books\n";
     final static String INVALID = "Select a valid option!\n";
@@ -87,7 +87,6 @@ public class BibliotecaApp {
         } else {
             System.out.print(INVALID);
             scanner = new Scanner(System.in);
-            BibliotecaApp bib = new BibliotecaApp();
             respondToReturnBookSelection(scanner);
         }
     }

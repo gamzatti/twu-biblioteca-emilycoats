@@ -11,12 +11,12 @@ import org.junit.contrib.java.lang.system.SystemOutRule;
 import org.junit.contrib.java.lang.system.TextFromStandardInputStream;
 
 import java.util.NoSuchElementException;
-import java.util.Scanner;
+
 
 
 public class BibliotecaAppTest {
 
-    public static final String SAMPLE_BOOKLIST = "1. Book1\n2. Book2\n3. Book3\nR. Return book\n";
+    private static final String SAMPLE_BOOKLIST = "1. Book1\n2. Book2\n3. Book3\nR. Return book\n";
     @Rule
     public final SystemOutRule systemOutRule = new SystemOutRule().enableLog();
 
@@ -45,9 +45,7 @@ public class BibliotecaAppTest {
     @Test
     public void testTyping1ShowsBookList() {
         systemInMock.provideLines("1");
-        try {
-            Scanner scanner = new Scanner(System.in);
-            BibliotecaApp.respondToMainMenuSelection(); }
+        try { BibliotecaApp.respondToMainMenuSelection(); }
         catch (NoSuchElementException e ) {}
         String expected = BibliotecaApp.BORROWING_INSTRUCTIONS + SAMPLE_BOOKLIST;
         assertEquals(expected, systemOutRule.getLog());
@@ -56,9 +54,7 @@ public class BibliotecaAppTest {
     @Test
     public void testInvalidOption() {
         systemInMock.provideLines("foo");
-        try {
-            Scanner scanner = new Scanner(System.in);
-            BibliotecaApp.respondToMainMenuSelection(); }
+        try { BibliotecaApp.respondToMainMenuSelection(); }
         catch (NoSuchElementException e) {}
         assertEquals(BibliotecaApp.INVALID, systemOutRule.getLog());
     }
@@ -108,7 +104,6 @@ public class BibliotecaAppTest {
         try {BibliotecaApp.listAvailableBooks();}
         catch (NoSuchElementException e ){}
         assertEquals(expected, systemOutRule.getLog());
-
     }
 
     @After

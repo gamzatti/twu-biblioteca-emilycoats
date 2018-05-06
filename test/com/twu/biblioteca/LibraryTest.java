@@ -58,8 +58,6 @@ public class LibraryTest {
         assertTrue(l.availableBooks.contains(b));
     }
 
-
-
     @After
     public void restoreBooksToLibrary() {
         BibliotecaApp.library = new Library();

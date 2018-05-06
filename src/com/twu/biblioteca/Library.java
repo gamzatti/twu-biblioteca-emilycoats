@@ -9,7 +9,7 @@ class Library {
     final static String SUCCESSFUL =  "Thank you! Enjoy the book.\n";
     final static String UNSUCCESSFUL =  "That book is not available.\n";
     final static String SUCCESSFUL_RETURN = "Thank you for returning the book.\n";
-    final static String UNSUCCESSFUL_RETURN = "That is not a valid book to return.\n";
+    private final static String UNSUCCESSFUL_RETURN = "That is not a valid book to return.\n";
 
 
     Library () {
@@ -19,7 +19,6 @@ class Library {
         Book b2 = new Book("Book2", 2);
         Book b3 = new Book("Book3", 3);
         availableBooks.addAll(Arrays.asList(b1, b2, b3));
-
     }
 
     void findAndReturnBook(int chosenNumber) {
@@ -38,7 +37,7 @@ class Library {
         }
     }
 
-    Book getBook(int chosenNumber, ArrayList<Book> bookList) {
+    private Book getBook(int chosenNumber, ArrayList<Book> bookList) {
         Book selectedBook = null;
         for (Book b : bookList) {
             if (b.number == chosenNumber) {
