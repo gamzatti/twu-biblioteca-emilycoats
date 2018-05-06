@@ -23,7 +23,7 @@ class Library {
 
     void findAndReturnBook(int chosenNumber) {
         Book selectedBook = getBook(chosenNumber, checkedOutBooks);
-        BibliotecaApp.library.returnBook(selectedBook);
+        returnBook(selectedBook);
     }
 
     void findAndCheckoutBook(int chosenNumber) {
@@ -33,7 +33,7 @@ class Library {
 
     void showBooks(ArrayList<Book> bookList) {
         for (Book b : bookList) {
-            System.out.println(String.format("%d. %s", b.number, b.name));
+            System.out.println(b.format());
         }
     }
 
@@ -47,11 +47,10 @@ class Library {
         return selectedBook;
     }
 
+
     void checkoutBook(Book book){
-        if (availableBooks.contains(book)) {
+        if (transaction(book, availableBooks, checkedOutBooks)){
             System.out.print(SUCCESSFUL_CHECKOUT);
-            availableBooks.remove(book);
-            checkedOutBooks.add(book);
         }
         else {
             System.out.print(UNSUCCESSFUL_CHECKOUT);
@@ -59,13 +58,23 @@ class Library {
     }
 
     void returnBook(Book book) {
-        if (checkedOutBooks.contains(book)) {
-            availableBooks.add(book);
-            checkedOutBooks.remove(book);
+        if (transaction(book, checkedOutBooks, availableBooks)){
             System.out.print(SUCCESSFUL_RETURN);
         }
         else {
             System.out.print(UNSUCCESSFUL_RETURN);
         }
     }
+
+    private boolean transaction(Book book, ArrayList<Book> from, ArrayList<Book> to){
+        if (from.contains(book)) {
+            from.remove(book);
+            to.add(book);
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
 }

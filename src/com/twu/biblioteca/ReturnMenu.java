@@ -24,7 +24,7 @@ public class ReturnMenu extends Menu {
             library.findAndReturnBook(chosenNumber);
         }
         else {
-            quitOrInvalid(scanner.next());
+            respondToQuitOrInvalid(scanner.next());
         }
     }
 }

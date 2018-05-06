@@ -22,7 +22,7 @@ public class BorrowMenu extends Menu {
             library.findAndCheckoutBook(chosenNumber);
         }
         else {
-            quitOrInvalid(scanner.next());
+            respondToQuitOrInvalid(scanner.next());
         }
     }
 }

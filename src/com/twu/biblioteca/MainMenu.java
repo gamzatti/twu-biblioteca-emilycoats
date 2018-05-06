@@ -18,7 +18,7 @@ public class MainMenu extends Menu {
             BibliotecaApp.showReturnMenu();
         }
         else {
-            quitOrInvalid(input);
+            respondToQuitOrInvalid(input);
         }
         display();
         respondToSelection();

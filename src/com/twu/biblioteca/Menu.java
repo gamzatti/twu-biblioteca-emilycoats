@@ -10,7 +10,7 @@ public abstract class Menu {
         System.out.print(instructions);
     }
 
-    void quitOrInvalid(String input){
+    void respondToQuitOrInvalid(String input){
         if (input.equals("quit")) {
             BibliotecaApp.quit();
         } else {

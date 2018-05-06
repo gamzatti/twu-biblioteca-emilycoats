@@ -8,4 +8,8 @@ class Book {
         this.name = name;
         this.number = number;
     }
+
+    String format() {
+        return(String.format("%d. %s", number, name));
+    }
 }
