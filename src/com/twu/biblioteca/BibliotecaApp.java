@@ -13,11 +13,15 @@ class BibliotecaApp {
         showAuthentication();
     }
 
-    private static void showAuthentication() {
+    public static void showAuthentication() {
         Authenticator a = new Authenticator();
         a.getCredentials();
         if (a.success) {
             showMainMenu();
+        }
+        else {
+            System.out.println("Sorry, that is not a valid combination");
+            a.getCredentials();
         }
     }
 

@@ -35,6 +35,18 @@ public class BibliotecaAppTest {
         assertEquals(expected, systemOutRule.getLog());
 
     }
+
+    @Test
+    public void testUnsuccessfulLogin() {
+        systemInMock.provideLines("123-4321", "ZZZ");
+        try {BibliotecaApp.showAuthentication();}
+        catch (NoSuchElementException e ){}
+        String expected = "Please enter your library number\nPlease enter your password\n" +
+                "Sorry, that is not a valid combination\nPlease enter your library number\n";
+
+        assertEquals(expected, systemOutRule.getLog());
+    }
+
     @Test
     public void testBookCanBeBorrowed(){
         systemInMock.provideLines("1");
