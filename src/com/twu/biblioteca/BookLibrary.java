@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 class BookLibrary {
-    ArrayList<Book> availableBooks;
-    ArrayList<Book> checkedOutBooks;
+    ArrayList<Book> available;
+    ArrayList<Book> checkedOut;
     final static String SUCCESSFUL_CHECKOUT =  "Thank you! Enjoy the book.\n";
     final static String UNSUCCESSFUL_CHECKOUT =  "That book is not available.\n";
     final static String SUCCESSFUL_CHECKIN = "Thank you for returning the book.\n";
@@ -13,8 +13,8 @@ class BookLibrary {
 
 
     BookLibrary() {
-        availableBooks = new ArrayList<Book>();
-        checkedOutBooks = new ArrayList<Book>();
+        available = new ArrayList<Book>();
+        checkedOut = new ArrayList<Book>();
         makeSamples();
     }
 
@@ -22,7 +22,7 @@ class BookLibrary {
         Book b1 = new Book("Book1", 1);
         Book b2 = new Book("Book2", 2);
         Book b3 = new Book("Book3", 3);
-        availableBooks.addAll(Arrays.asList(b1, b2, b3));
+        available.addAll(Arrays.asList(b1, b2, b3));
     }
 
     void show(ArrayList<Book> bookList) {
@@ -42,11 +42,9 @@ class BookLibrary {
     }
 
     void checkout(Book book, User u){
-        if (transact(book, availableBooks, checkedOutBooks).equals("successful")){
+        if (transact(book, available, checkedOut).equals("successful")){
             u.bookCollection.add(book);
             System.out.print(SUCCESSFUL_CHECKOUT);
-
-
         }
         else {
             System.out.print(UNSUCCESSFUL_CHECKOUT);
@@ -54,12 +52,12 @@ class BookLibrary {
     }
 
     void checkout(int number, User u) {
-        Book selectedBook = findFromIndex(number, availableBooks);
+        Book selectedBook = findFromIndex(number, available);
         checkout(selectedBook, u);
     }
 
     void checkin(Book book, User u) {
-        if (u.bookCollection.contains(book) && transact(book, checkedOutBooks, availableBooks).equals("successful")){
+        if (u.bookCollection.contains(book) && transact(book, checkedOut, available).equals("successful")){
             System.out.print(SUCCESSFUL_CHECKIN);
         }
         else {
@@ -68,7 +66,7 @@ class BookLibrary {
     }
 
     void checkin(int number, User u) {
-        Book selectedBook = findFromIndex(number, checkedOutBooks);
+        Book selectedBook = findFromIndex(number, checkedOut);
         checkin(selectedBook, u);
     }
 

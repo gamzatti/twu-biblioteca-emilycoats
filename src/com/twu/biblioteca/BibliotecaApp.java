@@ -2,7 +2,8 @@ package com.twu.biblioteca;
 
 class BibliotecaApp {
     final static String WELCOME = "Welcome to Biblioteca\n";
-    static BookLibrary bookLibrary = new BookLibrary();
+    static BookLibrary bl = new BookLibrary();
+    static MovieLibrary ml = new MovieLibrary();
     static Authenticator authenticator = new Authenticator();
     static User activeUser;
 
@@ -38,13 +39,25 @@ class BibliotecaApp {
     }
 
     static void showBorrowMenu(String bookOrMovie) {
-        BorrowMenu bm = new BorrowMenu(bookLibrary);
-        bm.display(bookOrMovie);
+        BorrowMenu bm;
+        if (bookOrMovie.equals("book")) {
+            bm = new BorrowMenu(bl);
+        }
+        else {
+            bm = new BorrowMenu(ml);
+        }
+        bm.display();
         bm.respond();
     }
 
-    static void showReturnMenu() {
-        ReturnMenu rm = new ReturnMenu(bookLibrary);
+    static void showReturnMenu(String bookOrMovie) {
+        ReturnMenu rm;
+        if (bookOrMovie.equals("book")) {
+            rm = new ReturnMenu(bl);
+        }
+        else {
+            rm = new ReturnMenu(ml);
+        }
         rm.display();
         rm.respond();
     }

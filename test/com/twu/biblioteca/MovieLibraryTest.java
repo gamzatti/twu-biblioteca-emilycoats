@@ -7,6 +7,8 @@ import org.junit.contrib.java.lang.system.SystemOutRule;
 import org.junit.contrib.java.lang.system.TextFromStandardInputStream;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.junit.contrib.java.lang.system.TextFromStandardInputStream.emptyStandardInputStream;
 
 public class MovieLibraryTest {
@@ -23,8 +25,43 @@ public class MovieLibraryTest {
     @Test
     public void testShowAvailableMovies() {
         MovieLibrary ml = new MovieLibrary();
-        ml.show(ml.availableMovies);
+        ml.show(ml.available);
         assertEquals(SAMPLE_MOVIELIST, systemOutRule.getLog());
 
     }
+    @Test
+    public void testSuccessfulCheckout(){
+        MovieLibrary ml = new MovieLibrary();
+        Movie m = new Movie("movie", 0);
+        User u = new User("888-8888", "foo");
+        BibliotecaApp.activeUser = u;
+        ml.available.add(m);
+        ml.checkout(m, u);
+        assertEquals(MovieLibrary.SUCCESSFUL_CHECKOUT, systemOutRule.getLog());
+        assertTrue(u.movieCollection.contains(m));
+    }
+
+    @Test
+    public void testSuccessfulReturn(){
+        MovieLibrary l = new MovieLibrary();
+        Movie m= new Movie("Muriel's Wedding", 0);
+        l.checkedOut.add(m);
+        User u = new User("888-8888", "foo");
+        u.movieCollection.add(m);
+        BibliotecaApp.activeUser = u;
+        l.checkin(m, BibliotecaApp.activeUser);
+        assertEquals(MovieLibrary.SUCCESSFUL_CHECKIN,systemOutRule.getLog());
+        assertTrue(l.available.contains(m));
+    }
+
+    @Test
+    public void testMovieIsRemovedFromAvailableBooksAfterCheckout() {
+        MovieLibrary l = new MovieLibrary();
+        Movie m = new Movie("movie10", 0);
+        l.available.add(m);
+        assertTrue(l.available.contains(m));
+        l.checkout(m, BibliotecaApp.activeUser);
+        assertFalse(l.available.contains(m));
+    }
+
 }

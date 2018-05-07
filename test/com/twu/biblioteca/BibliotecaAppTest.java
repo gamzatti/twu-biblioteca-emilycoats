@@ -31,7 +31,7 @@ public class BibliotecaAppTest {
     public void testAppStartsWithLogin(){
         try {BibliotecaApp.main(new String[0]);}
         catch (NoSuchElementException e) {}
-        String expected = BibliotecaApp.WELCOME + "Please enter your bookLibrary number\n";
+        String expected = BibliotecaApp.WELCOME + "Please enter your bl number\n";
         assertEquals(expected, systemOutRule.getLog());
 
     }
@@ -41,8 +41,8 @@ public class BibliotecaAppTest {
         systemInMock.provideLines("123-4999", "ZZZ");
         try {BibliotecaApp.showAuthentication();}
         catch (NoSuchElementException e ){}
-        String expected = "Please enter your bookLibrary number\nPlease enter your password\n" +
-                "Sorry, that is not a valid combination\nPlease enter your bookLibrary number\n";
+        String expected = "Please enter your bl number\nPlease enter your password\n" +
+                "Sorry, that is not a valid combination\nPlease enter your bl number\n";
         assertEquals(expected, systemOutRule.getLog());
     }
 
@@ -61,12 +61,12 @@ public class BibliotecaAppTest {
         systemInMock.provideLines("0");
         BibliotecaApp.activeUser = new User("123-4321", "88");
         Book b = new Book("The Agile Samurai", 0);
-        BookLibrary l = BibliotecaApp.bookLibrary;
-        l.checkedOutBooks.add(b);
+        BookLibrary l = BibliotecaApp.bl;
+        l.checkedOut.add(b);
         BibliotecaApp.activeUser.bookCollection.add(b);
         String expected = "Type the number of the book you wish to return\n0. The Agile Samurai\n" +
                 BookLibrary.SUCCESSFUL_CHECKIN;
-        BibliotecaApp.showReturnMenu();
+        BibliotecaApp.showReturnMenu("book");
         assertEquals(expected, systemOutRule.getLog());
     }
 
@@ -83,7 +83,7 @@ public class BibliotecaAppTest {
 
     @After
     public void restoreBooksToLibrary() {
-        BibliotecaApp.bookLibrary = new BookLibrary();
+        BibliotecaApp.bl = new BookLibrary();
     }
     @After
     public void restoreAuthenticator() { BibliotecaApp.authenticator = new Authenticator();}

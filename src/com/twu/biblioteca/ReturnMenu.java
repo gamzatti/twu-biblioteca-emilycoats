@@ -4,18 +4,26 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ReturnMenu extends Menu {
-    private BookLibrary bookLibrary;
+    private BookLibrary bl;
+    private MovieLibrary ml;
+    private String borrowableType;
 
-    ReturnMenu(BookLibrary lib) {
-        bookLibrary = lib;
+    ReturnMenu(BookLibrary bl) {
+        this.bl = bl;
         instructions = "Type the number of the book you wish to return\n";
-        ArrayList<Book> booklist = bookLibrary.checkedOutBooks;
+        borrowableType = "book";
+    }
+
+    ReturnMenu(MovieLibrary ml) {
+        this.ml = ml;
+        instructions = "Type the number of the book you wish to return\n";
+        borrowableType = "book";
     }
 
     public void display() {
         super.display();
         try {
-            bookLibrary.show(BibliotecaApp.activeUser.bookCollection);
+            bl.show(BibliotecaApp.activeUser.bookCollection);
         }
         catch (NullPointerException e) {
 //            System.out.println("No user is logged in");
@@ -26,7 +34,12 @@ public class ReturnMenu extends Menu {
         Scanner scanner = new Scanner(System.in);
         if (scanner.hasNextInt()) {
             int chosenNumber = scanner.nextInt();
-            bookLibrary.checkin(chosenNumber, BibliotecaApp.activeUser);
+            if (borrowableType.equals("book")) {
+                bl.checkin(chosenNumber, BibliotecaApp.activeUser);
+            }
+            else {
+                ml.checkin(chosenNumber, BibliotecaApp.activeUser);
+            }
         }
         else {
             respondToQuitOrInvalid(scanner.next());

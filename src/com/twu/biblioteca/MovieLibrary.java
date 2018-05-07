@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 class MovieLibrary {
-    ArrayList<Movie> availableMovies;
-    ArrayList<Movie> checkedOutMovies;
+    ArrayList<Movie> available;
+    ArrayList<Movie> checkedOut;
     final static String SUCCESSFUL_CHECKOUT =  "Thank you! Enjoy the movie.\n";
     final static String UNSUCCESSFUL_CHECKOUT =  "That movie is not available.\n";
     final static String SUCCESSFUL_CHECKIN = "Thank you for returning the movie.\n";
@@ -13,8 +13,8 @@ class MovieLibrary {
 
 
     MovieLibrary() {
-        availableMovies = new ArrayList<Movie>();
-        checkedOutMovies = new ArrayList<Movie>();
+        available = new ArrayList<Movie>();
+        checkedOut = new ArrayList<Movie>();
         makeSamples();
     }
 
@@ -22,7 +22,7 @@ class MovieLibrary {
         Movie b1 = new Movie("Movie1", 4);
         Movie b2 = new Movie("Movie2", 5);
         Movie b3 = new Movie("Movie3", 6);
-        availableMovies.addAll(Arrays.asList(b1, b2, b3));
+        available.addAll(Arrays.asList(b1, b2, b3));
     }
 
     void show(ArrayList<Movie> movieList) {
@@ -42,7 +42,7 @@ class MovieLibrary {
     }
 
     void checkout(Movie movie, User u){
-        if (transact(movie, availableMovies, checkedOutMovies).equals("successful")){
+        if (transact(movie, available, checkedOut).equals("successful")){
             u.movieCollection.add(movie);
             System.out.print(SUCCESSFUL_CHECKOUT);
 
@@ -54,12 +54,12 @@ class MovieLibrary {
     }
 
     void checkout(int number, User u) {
-        Movie selectedMovie = findFromIndex(number, availableMovies);
+        Movie selectedMovie = findFromIndex(number, available);
         checkout(selectedMovie, u);
     }
 
     void checkin(Movie movie, User u) {
-        if (u.bookCollection.contains(movie) && transact(movie, checkedOutMovies, availableMovies).equals("successful")){
+        if (u.movieCollection.contains(movie) && transact(movie, checkedOut, available).equals("successful")){
             System.out.print(SUCCESSFUL_CHECKIN);
         }
         else {
@@ -68,7 +68,7 @@ class MovieLibrary {
     }
 
     void checkin(int number, User u) {
-        Movie selectedMovie = findFromIndex(number, checkedOutMovies);
+        Movie selectedMovie = findFromIndex(number, checkedOut);
         checkin(selectedMovie, u);
     }
 

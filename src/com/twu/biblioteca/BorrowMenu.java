@@ -1,26 +1,32 @@
 package com.twu.biblioteca;
 
-import org.junit.contrib.java.lang.system.SystemOutRule;
-
 import java.util.Scanner;
 
 public class BorrowMenu extends Menu {
     private BookLibrary bl;
     private MovieLibrary ml;
+    private String borrowableType;
 
     BorrowMenu(BookLibrary bl){
         instructions = "Please select an item to borrow by its number from the list below.\n";
         this.bl = bl;
-        this.ml = new MovieLibrary();
+//        this.ml = new MovieLibrary();
+        borrowableType = "book";
     }
 
-    public void display(String bookOrMovie){
+    BorrowMenu(MovieLibrary ml){
+        instructions = "Please select an item to borrow by its number from the list below.\n";
+        this.ml = ml;
+//        this.bl = new BookLibrary();
+        borrowableType = "movie";
+    }
+    public void display(){
         super.display();
-        if (bookOrMovie.equals("book")) {
-            bl.show(bl.availableBooks);
+        if (borrowableType.equals("book")) {
+            bl.show(bl.available);
         }
-        else if (bookOrMovie.equals("movie")) {
-            ml.show(ml.availableMovies);
+        else if (borrowableType.equals("movie")) {
+            ml.show(ml.available);
         }
     }
 
@@ -28,7 +34,12 @@ public class BorrowMenu extends Menu {
         Scanner scanner = new Scanner(System.in);
         if (scanner.hasNextInt()) {
             int chosenNumber = scanner.nextInt();
-            bl.checkout(chosenNumber, BibliotecaApp.activeUser);
+            if (borrowableType.equals("book")) {
+                bl.checkout(chosenNumber, BibliotecaApp.activeUser);
+            }
+            else {
+                ml.checkout(chosenNumber, BibliotecaApp.activeUser);
+            }
         }
         else {
             respondToQuitOrInvalid(scanner.next());

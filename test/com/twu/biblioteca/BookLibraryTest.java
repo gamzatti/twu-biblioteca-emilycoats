@@ -27,7 +27,7 @@ public class BookLibraryTest {
         Book b = new Book("book", 0);
         User u = new User("888-8888", "foo");
         BibliotecaApp.activeUser = u;
-        l.availableBooks.add(b);
+        l.available.add(b);
         l.checkout(b, u);
         assertEquals(BookLibrary.SUCCESSFUL_CHECKOUT, systemOutRule.getLog());
         assertTrue(u.bookCollection.contains(b));
@@ -38,10 +38,10 @@ public class BookLibraryTest {
     public void testBookIsRemovedFromAvailableBooksAfterCheckout() {
         BookLibrary l = new BookLibrary();
         Book b = new Book("book", 0);
-        l.availableBooks.add(b);
-        assertTrue(l.availableBooks.contains(b));
+        l.available.add(b);
+        assertTrue(l.available.contains(b));
         l.checkout(b, BibliotecaApp.activeUser);
-        assertFalse(l.availableBooks.contains(b));
+        assertFalse(l.available.contains(b));
     }
 
     @Test
@@ -56,31 +56,31 @@ public class BookLibraryTest {
     public void testSuccessfulReturn(){
         BookLibrary l = new BookLibrary();
         Book b = new Book("Head First Java", 0);
-        l.checkedOutBooks.add(b);
+        l.checkedOut.add(b);
         User u = new User("888-8888", "foo");
         u.bookCollection.add(b);
         BibliotecaApp.activeUser = u;
         l.checkin(b, BibliotecaApp.activeUser);
         assertEquals(BookLibrary.SUCCESSFUL_CHECKIN,systemOutRule.getLog());
-        assertTrue(l.availableBooks.contains(b));
+        assertTrue(l.available.contains(b));
     }
 
     @Test
     public void testCanOnlyBeReturnedIfActiveUserHasBorrowedIt(){
         BookLibrary l = new BookLibrary();
         Book b = new Book("Head First Java", 0);
-        l.checkedOutBooks.add(b);
+        l.checkedOut.add(b);
         User u = new User("888-8888", "foo");
         BibliotecaApp.activeUser = u;
         l.checkin(b, BibliotecaApp.activeUser);
         assertEquals(BookLibrary.UNSUCCESSFUL_CHECKIN,systemOutRule.getLog());
-        assertFalse(l.availableBooks.contains(b));
+        assertFalse(l.available.contains(b));
     }
 
 
     @After
     public void restoreBooksToLibrary() {
-        BibliotecaApp.bookLibrary = new BookLibrary();
+        BibliotecaApp.bl = new BookLibrary();
     }
 
 }

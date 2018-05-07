@@ -18,7 +18,7 @@ public class MainMenu extends Menu {
             BibliotecaApp.showBorrowMenu("movie");
         }
         else if (input.equals("3")) {
-            BibliotecaApp.showReturnMenu();
+            BibliotecaApp.showReturnMenu("book");
         }
         else {
             respondToQuitOrInvalid(input);
