@@ -1,12 +1,8 @@
 package com.twu.biblioteca;
 
-class Book {
-    String name;
-    int number;
-
+class Book extends Borrowable {
     Book(String name, int number) {
-        this.name = name;
-        this.number = number;
+        super(name, number);
     }
 
     String format() {

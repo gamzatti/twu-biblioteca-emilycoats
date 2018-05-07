@@ -2,12 +2,9 @@ package com.twu.biblioteca;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 
 class MovieLibrary {
-    HashMap<String, ArrayList<Movie>> available = new HashMap<String, ArrayList<Movie>>();
     ArrayList<Movie> availableMovies;
-//    ArrayList<Movie> availableMovies;
     ArrayList<Movie> checkedOutMovies;
     final static String SUCCESSFUL_CHECKOUT =  "Thank you! Enjoy the movie.\n";
     final static String UNSUCCESSFUL_CHECKOUT =  "That movie is not available.\n";
@@ -17,9 +14,6 @@ class MovieLibrary {
 
     MovieLibrary() {
         availableMovies = new ArrayList<Movie>();
-//        availableMovies = new ArrayList<Movie>();
-        available.put("movie", availableMovies);
-//        available.put("movie", availableMovies);
         checkedOutMovies = new ArrayList<Movie>();
         makeSamples();
     }

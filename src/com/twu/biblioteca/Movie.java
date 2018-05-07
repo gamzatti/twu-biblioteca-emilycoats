@@ -1,12 +1,9 @@
 package com.twu.biblioteca;
 
-class Movie {
-    String name;
-    int number;
+class Movie extends Borrowable{
 
     Movie(String name, int number) {
-        this.name = name;
-        this.number = number;
+        super(name, number);
     }
 
     String format() {
