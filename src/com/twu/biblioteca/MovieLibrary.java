@@ -3,9 +3,7 @@ package com.twu.biblioteca;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-class MovieLibrary {
-    ArrayList<Borrowable> available;
-    ArrayList<Borrowable> checkedOut;
+class MovieLibrary extends Library {
     final static String SUCCESSFUL_CHECKOUT =  "Thank you! Enjoy the movie.\n";
     final static String UNSUCCESSFUL_CHECKOUT =  "That movie is not available.\n";
     final static String SUCCESSFUL_CHECKIN = "Thank you for returning the movie.\n";
@@ -18,18 +16,13 @@ class MovieLibrary {
         makeSamples();
     }
 
-    private void makeSamples() {
+    void makeSamples() {
         Movie b1 = new Movie("Movie1", 4);
         Movie b2 = new Movie("Movie2", 5);
         Movie b3 = new Movie("Movie3", 6);
         available.addAll(Arrays.asList(b1, b2, b3));
     }
 
-    void show(ArrayList<Borrowable> borrowableList) {
-        for (Borrowable b : borrowableList) {
-            System.out.println(b.format());
-        }
-    }
 
     private Borrowable findFromIndex(int chosenNumber, ArrayList<Borrowable> borrowableList) {
         Borrowable selectedBorrowable = null;
@@ -56,8 +49,8 @@ class MovieLibrary {
         checkout(selectedMovie, u);
     }
 
-    void checkin(Borrowable movie, User u) {
-        if (u.movieCollection.contains(movie) && transact(movie, checkedOut, available).equals("successful")){
+    void checkin(Borrowable borrowable, User u) {
+        if (u.movieCollection.contains(borrowable) && transact(borrowable, checkedOut, available).equals("successful")){
             System.out.print(SUCCESSFUL_CHECKIN);
         }
         else {
@@ -71,10 +64,10 @@ class MovieLibrary {
     }
 
 
-    private String transact(Borrowable movie, ArrayList<Borrowable> from, ArrayList<Borrowable> to){
-        if (from.contains(movie)) {
-            from.remove(movie);
-            to.add(movie);
+    private String transact(Borrowable borrowable, ArrayList<Borrowable> from, ArrayList<Borrowable> to){
+        if (from.contains(borrowable)) {
+            from.remove(borrowable);
+            to.add(borrowable);
             return "successful";
         }
         else {

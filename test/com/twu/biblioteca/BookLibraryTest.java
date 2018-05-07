@@ -77,10 +77,14 @@ public class BookLibraryTest {
         assertFalse(l.available.contains(b));
     }
 
-
-    @After
-    public void restoreBooksToLibrary() {
-        BibliotecaApp.bl = new BookLibrary();
+    @Test
+    public void testConstructLibrary() {
+        BookLibrary l = new BookLibrary();
     }
+
+//    @After
+//    public void restoreBooksToLibrary() {
+//        BibliotecaApp.bl = new BookLibrary();
+//    }
 
 }
