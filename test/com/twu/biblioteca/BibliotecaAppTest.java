@@ -31,7 +31,7 @@ public class BibliotecaAppTest {
     public void testAppStartsWithLogin(){
         try {BibliotecaApp.main(new String[0]);}
         catch (NoSuchElementException e) {}
-        String expected = BibliotecaApp.WELCOME + "Please enter your bl number\n";
+        String expected = BibliotecaApp.WELCOME + "Please enter your library number\n";
         assertEquals(expected, systemOutRule.getLog());
 
     }
@@ -41,8 +41,8 @@ public class BibliotecaAppTest {
         systemInMock.provideLines("123-4999", "ZZZ");
         try {BibliotecaApp.showAuthentication();}
         catch (NoSuchElementException e ){}
-        String expected = "Please enter your bl number\nPlease enter your password\n" +
-                "Sorry, that is not a valid combination\nPlease enter your bl number\n";
+        String expected = "Please enter your library number\nPlease enter your password\n" +
+                "Sorry, that is not a valid combination\nPlease enter your library number\n";
         assertEquals(expected, systemOutRule.getLog());
     }
 

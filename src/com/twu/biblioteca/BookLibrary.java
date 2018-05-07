@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 class BookLibrary {
-    ArrayList<Book> available;
-    ArrayList<Book> checkedOut;
+    ArrayList<Borrowable> available;
+    ArrayList<Borrowable> checkedOut;
     final static String SUCCESSFUL_CHECKOUT =  "Thank you! Enjoy the book.\n";
     final static String UNSUCCESSFUL_CHECKOUT =  "That book is not available.\n";
     final static String SUCCESSFUL_CHECKIN = "Thank you for returning the book.\n";
@@ -13,8 +13,8 @@ class BookLibrary {
 
 
     BookLibrary() {
-        available = new ArrayList<Book>();
-        checkedOut = new ArrayList<Book>();
+        available = new ArrayList<Borrowable>();
+        checkedOut = new ArrayList<Borrowable>();
         makeSamples();
     }
 
@@ -25,20 +25,20 @@ class BookLibrary {
         available.addAll(Arrays.asList(b1, b2, b3));
     }
 
-    void show(ArrayList<Book> bookList) {
-        for (Book b : bookList) {
+    void show(ArrayList<Borrowable> borrowableList) {
+        for (Borrowable b : borrowableList) {
             System.out.println(b.format());
         }
     }
 
-    private Book findFromIndex(int chosenNumber, ArrayList<Book> bookList) {
-        Book selectedBook = null;
-        for (Book b : bookList) {
+    private Borrowable findFromIndex(int chosenNumber, ArrayList<Borrowable> borrowableList) {
+        Borrowable selectedBorrowable = null;
+        for (Borrowable b : borrowableList) {
             if (b.number == chosenNumber) {
-                selectedBook = b;
+                selectedBorrowable = b;
             }
         }
-        return selectedBook;
+        return selectedBorrowable;
     }
 
     void checkout(Book book, User u){
@@ -52,11 +52,11 @@ class BookLibrary {
     }
 
     void checkout(int number, User u) {
-        Book selectedBook = findFromIndex(number, available);
+        Book selectedBook = (Book) findFromIndex(number, available);
         checkout(selectedBook, u);
     }
 
-    void checkin(Book book, User u) {
+    void checkin(Borrowable book, User u) {
         if (u.bookCollection.contains(book) && transact(book, checkedOut, available).equals("successful")){
             System.out.print(SUCCESSFUL_CHECKIN);
         }
@@ -66,12 +66,12 @@ class BookLibrary {
     }
 
     void checkin(int number, User u) {
-        Book selectedBook = findFromIndex(number, checkedOut);
+        Borrowable selectedBook = findFromIndex(number, checkedOut);
         checkin(selectedBook, u);
     }
 
 
-    private String transact(Book book, ArrayList<Book> from, ArrayList<Book> to){
+    private String transact(Borrowable book, ArrayList<Borrowable> from, ArrayList<Borrowable> to){
         if (from.contains(book)) {
             from.remove(book);
             to.add(book);

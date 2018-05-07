@@ -11,7 +11,7 @@ public class Authenticator {
     final String INVALID = "Sorry, that is not a valid combination";
 
     Authenticator(){
-        instructions.put("libraryNumber", "Please enter your bl number\n");
+        instructions.put("libraryNumber", "Please enter your library number\n");
         instructions.put("password", "Please enter your password\n");
         User sampleUser = new User("123-4567", "password");
         users.add(sampleUser);

@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 class MovieLibrary {
-    ArrayList<Movie> available;
-    ArrayList<Movie> checkedOut;
+    ArrayList<Borrowable> available;
+    ArrayList<Borrowable> checkedOut;
     final static String SUCCESSFUL_CHECKOUT =  "Thank you! Enjoy the movie.\n";
     final static String UNSUCCESSFUL_CHECKOUT =  "That movie is not available.\n";
     final static String SUCCESSFUL_CHECKIN = "Thank you for returning the movie.\n";
@@ -13,8 +13,8 @@ class MovieLibrary {
 
 
     MovieLibrary() {
-        available = new ArrayList<Movie>();
-        checkedOut = new ArrayList<Movie>();
+        available = new ArrayList<Borrowable>();
+        checkedOut = new ArrayList<Borrowable>();
         makeSamples();
     }
 
@@ -25,28 +25,26 @@ class MovieLibrary {
         available.addAll(Arrays.asList(b1, b2, b3));
     }
 
-    void show(ArrayList<Movie> movieList) {
-        for (Movie b : movieList) {
+    void show(ArrayList<Borrowable> borrowableList) {
+        for (Borrowable b : borrowableList) {
             System.out.println(b.format());
         }
     }
 
-    private Movie findFromIndex(int chosenNumber, ArrayList<Movie> movieList) {
-        Movie selectedMovie = null;
-        for (Movie b : movieList) {
+    private Borrowable findFromIndex(int chosenNumber, ArrayList<Borrowable> borrowableList) {
+        Borrowable selectedBorrowable = null;
+        for (Borrowable b : borrowableList) {
             if (b.number == chosenNumber) {
-                selectedMovie = b;
+                selectedBorrowable = b;
             }
         }
-        return selectedMovie;
+        return selectedBorrowable;
     }
 
     void checkout(Movie movie, User u){
         if (transact(movie, available, checkedOut).equals("successful")){
             u.movieCollection.add(movie);
             System.out.print(SUCCESSFUL_CHECKOUT);
-
-
         }
         else {
             System.out.print(UNSUCCESSFUL_CHECKOUT);
@@ -54,11 +52,11 @@ class MovieLibrary {
     }
 
     void checkout(int number, User u) {
-        Movie selectedMovie = findFromIndex(number, available);
+        Movie selectedMovie = (Movie) findFromIndex(number, available);
         checkout(selectedMovie, u);
     }
 
-    void checkin(Movie movie, User u) {
+    void checkin(Borrowable movie, User u) {
         if (u.movieCollection.contains(movie) && transact(movie, checkedOut, available).equals("successful")){
             System.out.print(SUCCESSFUL_CHECKIN);
         }
@@ -68,12 +66,12 @@ class MovieLibrary {
     }
 
     void checkin(int number, User u) {
-        Movie selectedMovie = findFromIndex(number, checkedOut);
+        Borrowable selectedMovie = findFromIndex(number, checkedOut);
         checkin(selectedMovie, u);
     }
 
 
-    private String transact(Movie movie, ArrayList<Movie> from, ArrayList<Movie> to){
+    private String transact(Borrowable movie, ArrayList<Borrowable> from, ArrayList<Borrowable> to){
         if (from.contains(movie)) {
             from.remove(movie);
             to.add(movie);

@@ -10,14 +10,12 @@ public class BorrowMenu extends Menu {
     BorrowMenu(BookLibrary bl){
         instructions = "Please select an item to borrow by its number from the list below.\n";
         this.bl = bl;
-//        this.ml = new MovieLibrary();
         borrowableType = "book";
     }
 
     BorrowMenu(MovieLibrary ml){
         instructions = "Please select an item to borrow by its number from the list below.\n";
         this.ml = ml;
-//        this.bl = new BookLibrary();
         borrowableType = "movie";
     }
     public void display(){
