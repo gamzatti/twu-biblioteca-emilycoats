@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 public class Authenticator {
-    boolean success = false;
+    private boolean success = false;
     final HashMap<String, String> instructions = new HashMap<String, String>();
     ArrayList<User> users = new ArrayList<User>();
     final String INVALID = "Sorry, that is not a valid combination";
@@ -15,7 +15,6 @@ public class Authenticator {
         instructions.put("password", "Please enter your password\n");
         User sampleUser = new User("123-4567", "password");
         users.add(sampleUser);
-
     }
 
     public User getCredentials(){
@@ -23,7 +22,6 @@ public class Authenticator {
         String password = getCredential("password");
         return checkCredentials(libraryNumber, password);
     }
-
 
     private String getCredential(String libraryNumberOrPassword) {
         System.out.print(instructions.get(libraryNumberOrPassword));
@@ -33,16 +31,23 @@ public class Authenticator {
             BibliotecaApp.quit();
         }
         return input;
-
     }
 
     public User checkCredentials(String libraryNumber, String password) {
         for (User user : users) {
             if (user.libraryNumber.equals(libraryNumber) && user.password.equals(password)){
-                success = true;
+                setSuccess(true);
                 return user;
             }
         }
         return null;
+    }
+
+    public boolean isSuccess() {
+        return success;
+    }
+
+    public void setSuccess(boolean success) {
+        this.success = success;
     }
 }

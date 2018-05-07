@@ -30,14 +30,14 @@ public class AuthenticatorTest {
         Authenticator a = new Authenticator();
         a.users.add(user);
         a.checkCredentials("999-9999", "PASSWORD");
-        assertTrue(a.success);
+        assertTrue(a.isSuccess());
     }
 
     @Test
     public void testFalseCredentials() {
         Authenticator a = new Authenticator();
         a.checkCredentials("555-5555", "PASSWORD");
-        assertFalse(a.success);
+        assertFalse(a.isSuccess());
     }
 
     @Test
@@ -45,7 +45,7 @@ public class AuthenticatorTest {
         systemInMock.provideLines("123-4567","password");
         Authenticator a = new Authenticator();
         a.getCredentials();
-        assertTrue(a.success);
+        assertTrue(a.isSuccess());
     }
 
     @Test

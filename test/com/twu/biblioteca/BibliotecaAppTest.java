@@ -50,8 +50,8 @@ public class BibliotecaAppTest {
     public void testBookCanBeBorrowed(){
         systemInMock.provideLines("1");
         BibliotecaApp.activeUser = new User("123-4321", "88");
-        BibliotecaApp.showBorrowMenu();
-        String expected = "To borrow a book, please select its number from the list below.\n" +
+        BibliotecaApp.showBorrowMenu("book");
+        String expected = "Please select an item to borrow by its number from the list below.\n" +
                 SAMPLE_BOOKLIST + Library.SUCCESSFUL_CHECKOUT;
         assertEquals(expected, systemOutRule.getLog());
     }

@@ -6,13 +6,13 @@ public class BorrowMenu extends Menu {
     private Library library;
 
     BorrowMenu(Library lib){
-        instructions = "To borrow a book, please select its number from the list below.\n";
+        instructions = "Please select an item to borrow by its number from the list below.\n";
         library = lib;
     }
 
-    public void display(){
+    public void display(String bookOrMovie){
         super.display();
-        library.show(library.availableBooks);
+        library.show(library.available.get(bookOrMovie));
     }
 
     public void respond() {

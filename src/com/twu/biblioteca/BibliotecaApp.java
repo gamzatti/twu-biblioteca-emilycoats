@@ -17,7 +17,7 @@ class BibliotecaApp {
 
     static void showAuthentication() {
         User user = BibliotecaApp.authenticator.getCredentials();
-        if (authenticator.success) {
+        if (authenticator.isSuccess()) {
             BibliotecaApp.activeUser = user;
             showMainMenu();
         }
@@ -37,9 +37,9 @@ class BibliotecaApp {
         System.exit(0);
     }
 
-    static void showBorrowMenu() {
+    static void showBorrowMenu(String bookOrMovie) {
         BorrowMenu bm = new BorrowMenu(library);
-        bm.display();
+        bm.display(bookOrMovie);
         bm.respond();
     }
 

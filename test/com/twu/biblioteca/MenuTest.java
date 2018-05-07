@@ -14,7 +14,9 @@ import java.util.NoSuchElementException;
 
 
 public class MenuTest {
-    private static final String SAMPLE_BOOKLIST = "1. Book1\n2. Book2\n3. Book3\n";
+    private static final String SAMPLE_BOOK_LIST = "1. Book1\n2. Book2\n3. Book3\n";
+    private static final String SAMPLE_MOVIE_LIST = "1. Movie1\n2. Movie2\n3. Movie3\n";
+
     @Rule
     public final SystemOutRule systemOutRule = new SystemOutRule().enableLog();
 
@@ -30,14 +32,26 @@ public class MenuTest {
         systemInMock.provideLines("1");
         try { m.respond(); }
         catch (NoSuchElementException e ) {}
-        String expected = "To borrow a book, please select its number from the list below.\n"
-                + SAMPLE_BOOKLIST;
+        String expected = "Please select an item to borrow by its number from the list below.\n"
+                + SAMPLE_BOOK_LIST;
         assertEquals(expected, systemOutRule.getLog());
     }
 
     @Test
-    public void testTyping2ShowsReturnMenu() {
+    public void testtyping2ShowsMoviesMenu() {
+        MainMenu m = new MainMenu();
         systemInMock.provideLines("2");
+        try { m.respond(); }
+        catch (NoSuchElementException e ) {}
+        String expected = "Please select an item to borrow by its number from the list below.\n"
+                + SAMPLE_MOVIE_LIST;
+        assertEquals(expected, systemOutRule.getLog());
+
+    }
+
+    @Test
+    public void testTyping3ShowsReturnMenu() {
+        systemInMock.provideLines("3");
         Library l = BibliotecaApp.library;
         MainMenu m = new MainMenu();
         String expected = "Type the number of the book you wish to return\n";
@@ -110,8 +124,14 @@ public class MenuTest {
     }
 
 
-
-
+    @Test
+    public void testMainMenuHasThreeOptions() {
+        MainMenu mm = new MainMenu();
+        mm.display();
+        String expected = "Main Menu. Select from the options below. \n" +
+                " 1. List available books\n 2. List available movies\n 3. Return a book\n";
+        assertEquals(expected, systemOutRule.getLog());
+    }
 
     @After
     public void restoreBooksToLibrary() {
