@@ -14,14 +14,14 @@ public class ReturnMenu extends Menu {
 
     public void display() {
         super.display();
-        library.showBooks(library.checkedOutBooks);
+        library.show(library.checkedOutBooks);
     }
 
-    public void respondToSelection() {
+    public void respond() {
         Scanner scanner = new Scanner(System.in);
         if (scanner.hasNextInt()) {
             int chosenNumber = scanner.nextInt();
-            library.findAndReturnBook(chosenNumber);
+            library.checkin(chosenNumber);
         }
         else {
             respondToQuitOrInvalid(scanner.next());

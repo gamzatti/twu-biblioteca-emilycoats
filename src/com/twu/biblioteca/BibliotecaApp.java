@@ -10,13 +10,18 @@ class BibliotecaApp {
 
     private static void start() {
         System.out.print(WELCOME);
-        showMainMenu();
+        LoginMenu lm = new LoginMenu();
+        lm.display();
+        lm.respond();
+        if (lm.success) {
+            showMainMenu();
+        }
     }
 
     private static void showMainMenu() {
         MainMenu m = new MainMenu();
         m.display();
-        m.respondToSelection();
+        m.respond();
     }
 
     static void quit() {
@@ -26,13 +31,13 @@ class BibliotecaApp {
     static void showBorrowMenu() {
         BorrowMenu bm = new BorrowMenu(library);
         bm.display();
-        bm.respondToSelection();
+        bm.respond();
     }
 
     static void showReturnMenu() {
         ReturnMenu rm = new ReturnMenu(library);
         rm.display();
-        rm.respondToSelection();
+        rm.respond();
     }
 
 }

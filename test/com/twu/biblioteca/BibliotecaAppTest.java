@@ -36,6 +36,14 @@ public class BibliotecaAppTest {
     }
 
     @Test
+    public void testAppStartswithLogin(){
+        try {BibliotecaApp.main(new String[0]);}
+        catch (NoSuchElementException e) {}
+        String expected = BibliotecaApp.WELCOME + "Please enter your library number\n";
+        assertEquals(expected, systemOutRule.getLog());
+
+    }
+    @Test
     public void testBookCanBeBorrowed(){
         systemInMock.provideLines("1");
         BibliotecaApp.showBorrowMenu();
@@ -51,7 +59,7 @@ public class BibliotecaAppTest {
         Library l = BibliotecaApp.library;
         l.checkedOutBooks.add(b);
         String expected = "Type the number of the book you wish to return\n0. The Agile Samurai\n" +
-                Library.SUCCESSFUL_RETURN;
+                Library.SUCCESSFUL_CHECKIN;
         BibliotecaApp.showReturnMenu();
         assertEquals(expected, systemOutRule.getLog());
     }

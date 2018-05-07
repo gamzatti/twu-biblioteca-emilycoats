@@ -4,7 +4,7 @@ public abstract class Menu {
     final static String INVALID = "Select a valid option!\n";
     String instructions;
 
-    public abstract void respondToSelection();
+    public abstract void respond();
 
     public void display(){
         System.out.print(instructions);
@@ -15,7 +15,7 @@ public abstract class Menu {
             BibliotecaApp.quit();
         } else {
             System.out.print(INVALID);
-            respondToSelection();
+            respond();
         }
 
     }

@@ -8,7 +8,7 @@ public class MainMenu extends Menu {
         instructions = "Main Menu. Select from the options below. \n 1. List available books\n 2. Return a book\n";
     }
 
-    public void respondToSelection(){
+    public void respond(){
         Scanner scanner = new Scanner(System.in);
         String input = scanner.next();
         if (input.equals("1")) {
@@ -21,7 +21,7 @@ public class MainMenu extends Menu {
             respondToQuitOrInvalid(input);
         }
         display();
-        respondToSelection();
+        respond();
 
     }
 

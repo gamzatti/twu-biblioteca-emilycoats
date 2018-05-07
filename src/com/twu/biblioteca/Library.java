@@ -8,8 +8,8 @@ class Library {
     ArrayList<Book> checkedOutBooks;
     final static String SUCCESSFUL_CHECKOUT =  "Thank you! Enjoy the book.\n";
     final static String UNSUCCESSFUL_CHECKOUT =  "That book is not available.\n";
-    final static String SUCCESSFUL_RETURN = "Thank you for returning the book.\n";
-    private final static String UNSUCCESSFUL_RETURN = "That is not a valid book to return.\n";
+    final static String SUCCESSFUL_CHECKIN = "Thank you for returning the book.\n";
+    private final static String UNSUCCESSFUL_CHECKIN = "That is not a valid book to return.\n";
 
 
     Library () {
@@ -21,23 +21,13 @@ class Library {
         availableBooks.addAll(Arrays.asList(b1, b2, b3));
     }
 
-    void findAndReturnBook(int chosenNumber) {
-        Book selectedBook = getBook(chosenNumber, checkedOutBooks);
-        returnBook(selectedBook);
-    }
-
-    void findAndCheckoutBook(int chosenNumber) {
-        Book selectedBook = getBook(chosenNumber, availableBooks);
-        checkoutBook(selectedBook);
-    }
-
-    void showBooks(ArrayList<Book> bookList) {
+    void show(ArrayList<Book> bookList) {
         for (Book b : bookList) {
             System.out.println(b.format());
         }
     }
 
-    private Book getBook(int chosenNumber, ArrayList<Book> bookList) {
+    private Book findFromIndex(int chosenNumber, ArrayList<Book> bookList) {
         Book selectedBook = null;
         for (Book b : bookList) {
             if (b.number == chosenNumber) {
@@ -47,9 +37,8 @@ class Library {
         return selectedBook;
     }
 
-
-    void checkoutBook(Book book){
-        if (transaction(book, availableBooks, checkedOutBooks)){
+    void checkout(Book book){
+        if (transact(book, availableBooks, checkedOutBooks)){
             System.out.print(SUCCESSFUL_CHECKOUT);
         }
         else {
@@ -57,16 +46,27 @@ class Library {
         }
     }
 
-    void returnBook(Book book) {
-        if (transaction(book, checkedOutBooks, availableBooks)){
-            System.out.print(SUCCESSFUL_RETURN);
+    void checkout(int number) {
+        Book selectedBook = findFromIndex(number, availableBooks);
+        checkout(selectedBook);
+    }
+
+    void checkin(Book book) {
+        if (transact(book, checkedOutBooks, availableBooks)){
+            System.out.print(SUCCESSFUL_CHECKIN);
         }
         else {
-            System.out.print(UNSUCCESSFUL_RETURN);
+            System.out.print(UNSUCCESSFUL_CHECKIN);
         }
     }
 
-    private boolean transaction(Book book, ArrayList<Book> from, ArrayList<Book> to){
+    void checkin(int number) {
+        Book selectedBook = findFromIndex(number, checkedOutBooks);
+        checkin(selectedBook);
+    }
+
+
+    private boolean transact(Book book, ArrayList<Book> from, ArrayList<Book> to){
         if (from.contains(book)) {
             from.remove(book);
             to.add(book);
@@ -76,5 +76,7 @@ class Library {
             return false;
         }
     }
+
+
 
 }

@@ -26,7 +26,7 @@ public class LibraryTest {
         Library l = new Library();
         Book b = new Book("book", 0);
         l.availableBooks.add(b);
-        l.checkoutBook(b);
+        l.checkout(b);
         assertEquals(Library.SUCCESSFUL_CHECKOUT, systemOutRule.getLog());
     }
 
@@ -36,7 +36,7 @@ public class LibraryTest {
         Book b = new Book("book", 0);
         l.availableBooks.add(b);
         assertTrue(l.availableBooks.contains(b));
-        l.checkoutBook(b);
+        l.checkout(b);
         assertFalse(l.availableBooks.contains(b));
     }
 
@@ -44,7 +44,7 @@ public class LibraryTest {
     public void testUnsuccessfulCheckout(){
         Library l = new Library();
         Book b = new Book("book",0);
-        l.checkoutBook(b);
+        l.checkout(b);
         assertEquals(Library.UNSUCCESSFUL_CHECKOUT, systemOutRule.getLog());
     }
 
@@ -53,8 +53,8 @@ public class LibraryTest {
         Library l = new Library();
         Book b = new Book("Head First Java", 0);
         l.checkedOutBooks.add(b);
-        l.returnBook(b);
-        assertEquals(Library.SUCCESSFUL_RETURN,systemOutRule.getLog());
+        l.checkin(b);
+        assertEquals(Library.SUCCESSFUL_CHECKIN,systemOutRule.getLog());
         assertTrue(l.availableBooks.contains(b));
     }
 
