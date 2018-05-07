@@ -10,10 +10,13 @@ class BibliotecaApp {
 
     private static void start() {
         System.out.print(WELCOME);
-        LoginMenu lm = new LoginMenu();
-        lm.display();
-        lm.respond();
-        if (lm.success) {
+        showAuthentication();
+    }
+
+    private static void showAuthentication() {
+        Authenticator a = new Authenticator();
+        a.getCredentials();
+        if (a.success) {
             showMainMenu();
         }
     }

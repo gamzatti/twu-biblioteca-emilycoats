@@ -26,14 +26,6 @@ public class BibliotecaAppTest {
     @Rule
     public final ExpectedSystemExit exit = ExpectedSystemExit.none();
 
-    @Test
-    public void testAppStarts() {
-        try { BibliotecaApp.main(new String[0]); }
-        catch (NoSuchElementException e) {}
-        String expected = BibliotecaApp.WELCOME +
-                "Main Menu. Select from the options below. \n 1. List available books\n 2. Return a book\n";
-        assertEquals(expected, systemOutRule.getLog());
-    }
 
     @Test
     public void testAppStartswithLogin(){
