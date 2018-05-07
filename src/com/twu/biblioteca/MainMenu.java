@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class MainMenu extends Menu {
 
     MainMenu(){
-        instructions = "Main Menu. Select from the options below. \n 1. List available books\n 2. Return a book\n";
+        instructions = "Main Menu. Select from the options below. \n 1. List available collection\n 2. Return a book\n";
     }
 
     public void respond(){

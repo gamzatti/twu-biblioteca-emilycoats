@@ -3,6 +3,8 @@ package com.twu.biblioteca;
 class BibliotecaApp {
     final static String WELCOME = "Welcome to Biblioteca\nType 'quit' at any time to exit the program\n";
     static Library library = new Library();
+    static Authenticator authenticator = new Authenticator();
+    static User activeUser;
 
     public static void main(String[] args){
         BibliotecaApp.start();
@@ -14,14 +16,14 @@ class BibliotecaApp {
     }
 
     public static void showAuthentication() {
-        Authenticator a = new Authenticator();
-        a.getCredentials();
-        if (a.success) {
+        User user = BibliotecaApp.authenticator.getCredentials();
+        if (authenticator.success) {
+            BibliotecaApp.activeUser = user;
             showMainMenu();
         }
         else {
             System.out.println("Sorry, that is not a valid combination");
-            a.getCredentials();
+            authenticator.getCredentials();
         }
     }
 

@@ -25,10 +25,14 @@ public class LibraryTest {
     public void testSuccessfulCheckout(){
         Library l = new Library();
         Book b = new Book("book", 0);
+        User u = new User("888-8888", "foo");
+        BibliotecaApp.activeUser = u;
         l.availableBooks.add(b);
-        l.checkout(b);
+        l.checkout(b, u);
         assertEquals(Library.SUCCESSFUL_CHECKOUT, systemOutRule.getLog());
+        assertTrue(u.collection.contains(b));
     }
+
 
     @Test
     public void testBookIsRemovedFromAvailableBooksAfterCheckout() {
@@ -36,7 +40,7 @@ public class LibraryTest {
         Book b = new Book("book", 0);
         l.availableBooks.add(b);
         assertTrue(l.availableBooks.contains(b));
-        l.checkout(b);
+        l.checkout(b, BibliotecaApp.activeUser);
         assertFalse(l.availableBooks.contains(b));
     }
 
@@ -44,7 +48,7 @@ public class LibraryTest {
     public void testUnsuccessfulCheckout(){
         Library l = new Library();
         Book b = new Book("book",0);
-        l.checkout(b);
+        l.checkout(b, BibliotecaApp.activeUser);
         assertEquals(Library.UNSUCCESSFUL_CHECKOUT, systemOutRule.getLog());
     }
 

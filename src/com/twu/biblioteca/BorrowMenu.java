@@ -19,7 +19,7 @@ public class BorrowMenu extends Menu {
         Scanner scanner = new Scanner(System.in);
         if (scanner.hasNextInt()) {
             int chosenNumber = scanner.nextInt();
-            library.checkout(chosenNumber);
+            library.checkout(chosenNumber, BibliotecaApp.activeUser);
         }
         else {
             respondToQuitOrInvalid(scanner.next());

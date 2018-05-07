@@ -37,22 +37,25 @@ class Library {
         return selectedBook;
     }
 
-    void checkout(Book book){
-        if (transact(book, availableBooks, checkedOutBooks)){
+    void checkout(Book book, User u){
+        if (transact(book, availableBooks, checkedOutBooks).equals("successful")){
+            u.collection.add(book);
             System.out.print(SUCCESSFUL_CHECKOUT);
+
+
         }
         else {
             System.out.print(UNSUCCESSFUL_CHECKOUT);
         }
     }
 
-    void checkout(int number) {
+    void checkout(int number, User u) {
         Book selectedBook = findFromIndex(number, availableBooks);
-        checkout(selectedBook);
+        checkout(selectedBook, u);
     }
 
     void checkin(Book book) {
-        if (transact(book, checkedOutBooks, availableBooks)){
+        if (transact(book, checkedOutBooks, availableBooks).equals("successful")){
             System.out.print(SUCCESSFUL_CHECKIN);
         }
         else {
@@ -66,14 +69,14 @@ class Library {
     }
 
 
-    private boolean transact(Book book, ArrayList<Book> from, ArrayList<Book> to){
+    private String transact(Book book, ArrayList<Book> from, ArrayList<Book> to){
         if (from.contains(book)) {
             from.remove(book);
             to.add(book);
-            return true;
+            return "successful";
         }
         else {
-            return false;
+            return "unsuccessful";
         }
     }
 

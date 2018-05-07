@@ -28,18 +28,17 @@ public class AuthenticatorTest {
     }
 
     @Test
+    public void testFalseCredentials() {
+        Authenticator a = new Authenticator();
+        a.checkCredentials("555-5555", "PASSWORD");
+        assertFalse(a.success);
+    }
+
+    @Test
     public void testGetCredentials() {
         systemInMock.provideLines("123-4567","password");
         Authenticator a = new Authenticator();
         a.getCredentials();
         assertTrue(a.success);
-    }
-
-    @Test
-    public void testFalseCredentials() {
-        Authenticator a = new Authenticator();
-        a.checkCredentials("555-5555", "PASSWORD");
-        assertFalse(a.success);
-
     }
 }

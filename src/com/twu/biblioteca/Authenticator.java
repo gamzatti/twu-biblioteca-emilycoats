@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class Authenticator {
     boolean success = false;
-    HashMap<String, String> instructions = new HashMap<String, String>();
+    final HashMap<String, String> instructions = new HashMap<String, String>();
     ArrayList<User> users = new ArrayList<User>();
 
 
@@ -18,10 +18,10 @@ public class Authenticator {
 
     }
 
-    public void getCredentials(){
+    public User getCredentials(){
         String libraryNumber = getCredential("libraryNumber");
         String password = getCredential("password");
-        checkCredentials(libraryNumber, password);
+        return checkCredentials(libraryNumber, password);
     }
 
 
@@ -32,13 +32,14 @@ public class Authenticator {
 
     }
 
-    public void checkCredentials(String libraryNumber, String password) {
+    public User checkCredentials(String libraryNumber, String password) {
         for (User user : users) {
             if (user.libraryNumber.equals(libraryNumber) && user.password.equals(password)){
                 success = true;
-                break;
+                return user;
+//                break;
             }
         }
-
+        return null;
     }
 }
