@@ -31,7 +31,7 @@ public class BibliotecaAppTest {
     public void testAppStartsWithLogin(){
         try {BibliotecaApp.main(new String[0]);}
         catch (NoSuchElementException e) {}
-        String expected = BibliotecaApp.WELCOME + "Please enter your library number\n";
+        String expected = BibliotecaApp.WELCOME + "Please enter your bookLibrary number\n";
         assertEquals(expected, systemOutRule.getLog());
 
     }
@@ -41,8 +41,8 @@ public class BibliotecaAppTest {
         systemInMock.provideLines("123-4999", "ZZZ");
         try {BibliotecaApp.showAuthentication();}
         catch (NoSuchElementException e ){}
-        String expected = "Please enter your library number\nPlease enter your password\n" +
-                "Sorry, that is not a valid combination\nPlease enter your library number\n";
+        String expected = "Please enter your bookLibrary number\nPlease enter your password\n" +
+                "Sorry, that is not a valid combination\nPlease enter your bookLibrary number\n";
         assertEquals(expected, systemOutRule.getLog());
     }
 
@@ -52,7 +52,7 @@ public class BibliotecaAppTest {
         BibliotecaApp.activeUser = new User("123-4321", "88");
         BibliotecaApp.showBorrowMenu("book");
         String expected = "Please select an item to borrow by its number from the list below.\n" +
-                SAMPLE_BOOKLIST + Library.SUCCESSFUL_CHECKOUT;
+                SAMPLE_BOOKLIST + BookLibrary.SUCCESSFUL_CHECKOUT;
         assertEquals(expected, systemOutRule.getLog());
     }
 
@@ -61,11 +61,11 @@ public class BibliotecaAppTest {
         systemInMock.provideLines("0");
         BibliotecaApp.activeUser = new User("123-4321", "88");
         Book b = new Book("The Agile Samurai", 0);
-        Library l = BibliotecaApp.library;
+        BookLibrary l = BibliotecaApp.bookLibrary;
         l.checkedOutBooks.add(b);
-        BibliotecaApp.activeUser.collection.add(b);
+        BibliotecaApp.activeUser.bookCollection.add(b);
         String expected = "Type the number of the book you wish to return\n0. The Agile Samurai\n" +
-                Library.SUCCESSFUL_CHECKIN;
+                BookLibrary.SUCCESSFUL_CHECKIN;
         BibliotecaApp.showReturnMenu();
         assertEquals(expected, systemOutRule.getLog());
     }
@@ -83,7 +83,7 @@ public class BibliotecaAppTest {
 
     @After
     public void restoreBooksToLibrary() {
-        BibliotecaApp.library = new Library();
+        BibliotecaApp.bookLibrary = new BookLibrary();
     }
     @After
     public void restoreAuthenticator() { BibliotecaApp.authenticator = new Authenticator();}

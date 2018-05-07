@@ -15,7 +15,7 @@ import java.util.NoSuchElementException;
 
 public class MenuTest {
     private static final String SAMPLE_BOOK_LIST = "1. Book1\n2. Book2\n3. Book3\n";
-    private static final String SAMPLE_MOVIE_LIST = "1. Movie1\n2. Movie2\n3. Movie3\n";
+    private static final String SAMPLE_MOVIE_LIST = "4. Movie1\n5. Movie2\n6. Movie3\n";
 
     @Rule
     public final SystemOutRule systemOutRule = new SystemOutRule().enableLog();
@@ -52,7 +52,7 @@ public class MenuTest {
     @Test
     public void testTyping3ShowsReturnMenu() {
         systemInMock.provideLines("3");
-        Library l = BibliotecaApp.library;
+        BookLibrary l = BibliotecaApp.bookLibrary;
         MainMenu m = new MainMenu();
         String expected = "Type the number of the book you wish to return\n";
         try {m.respond();}
@@ -62,7 +62,7 @@ public class MenuTest {
 
     @Test
     public void testReturnMenuOnlyDisplaysBooksBorrowedByUser(){
-        Library l = BibliotecaApp.library;
+        BookLibrary l = BibliotecaApp.bookLibrary;
         ReturnMenu rm = new ReturnMenu(l);
         BibliotecaApp.activeUser = new User("888-8888", "foo");
         Book b = new Book("The Agile Samurai", 0);
@@ -93,13 +93,13 @@ public class MenuTest {
     public void testQuitFromBorrowMenu() {
         exit.expectSystemExit();
         systemInMock.provideLines("quit");
-        BorrowMenu bm = new BorrowMenu(new Library());
+        BorrowMenu bm = new BorrowMenu(new BookLibrary());
         bm.respond();
     }
 
     @Test
     public void testInvalidFromBorrowMenu(){
-        BorrowMenu bm = new BorrowMenu(BibliotecaApp.library);
+        BorrowMenu bm = new BorrowMenu(BibliotecaApp.bookLibrary);
         systemInMock.provideLines("foo");
         try {bm.respond();}
         catch (NoSuchElementException e) {}
@@ -110,13 +110,13 @@ public class MenuTest {
     public void testQuitFromReturnMenu() {
         exit.expectSystemExit();
         systemInMock.provideLines("quit");
-        ReturnMenu rm = new ReturnMenu(new Library());
+        ReturnMenu rm = new ReturnMenu(new BookLibrary());
         rm.respond();
     }
 
     @Test
     public void testInvalidFromReturnMenu(){
-        ReturnMenu rm = new ReturnMenu(BibliotecaApp.library);
+        ReturnMenu rm = new ReturnMenu(BibliotecaApp.bookLibrary);
         systemInMock.provideLines("foo");
         try {rm.respond();}
         catch (NoSuchElementException e) {}
@@ -135,7 +135,7 @@ public class MenuTest {
 
     @After
     public void restoreBooksToLibrary() {
-        BibliotecaApp.library = new Library();
+        BibliotecaApp.bookLibrary = new BookLibrary();
     }
 
     @After

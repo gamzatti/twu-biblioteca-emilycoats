@@ -5,7 +5,8 @@ import java.util.ArrayList;
 public class User {
     String libraryNumber;
     String password;
-    ArrayList<Book> collection = new ArrayList<Book>();
+    ArrayList<Book> bookCollection = new ArrayList<Book>();
+    ArrayList<Movie> movieCollection = new ArrayList<Movie>();
 
 
     User(String libraryNumber, String password) {
