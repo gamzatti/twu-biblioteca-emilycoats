@@ -15,14 +15,14 @@ class BibliotecaApp {
         showAuthentication();
     }
 
-    public static void showAuthentication() {
+    static void showAuthentication() {
         User user = BibliotecaApp.authenticator.getCredentials();
         if (authenticator.success) {
             BibliotecaApp.activeUser = user;
             showMainMenu();
         }
         else {
-            System.out.println("Sorry, that is not a valid combination");
+            System.out.println(authenticator.INVALID);
             authenticator.getCredentials();
         }
     }

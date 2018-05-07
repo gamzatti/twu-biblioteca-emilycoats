@@ -8,13 +8,13 @@ public class Authenticator {
     boolean success = false;
     final HashMap<String, String> instructions = new HashMap<String, String>();
     ArrayList<User> users = new ArrayList<User>();
-
+    final String INVALID = "Sorry, that is not a valid combination";
 
     Authenticator(){
         instructions.put("libraryNumber", "Please enter your library number\n");
         instructions.put("password", "Please enter your password\n");
-        User user1 = new User("123-4567", "password");
-        users.add(user1);
+        User sampleUser = new User("123-4567", "password");
+        users.add(sampleUser);
 
     }
 
@@ -28,7 +28,11 @@ public class Authenticator {
     private String getCredential(String libraryNumberOrPassword) {
         System.out.print(instructions.get(libraryNumberOrPassword));
         Scanner scanner = new Scanner(System.in);
-        return scanner.next();
+        String input = scanner.next();
+        if (input.equals("quit")) {
+            BibliotecaApp.quit();
+        }
+        return input;
 
     }
 

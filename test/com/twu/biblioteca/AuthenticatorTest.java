@@ -2,8 +2,11 @@ package com.twu.biblioteca;
 
 import org.junit.Test;
 import org.junit.Rule;
+import org.junit.contrib.java.lang.system.ExpectedSystemExit;
 import org.junit.contrib.java.lang.system.SystemOutRule;
 import org.junit.contrib.java.lang.system.TextFromStandardInputStream;
+
+import java.util.NoSuchElementException;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -17,6 +20,9 @@ public class AuthenticatorTest {
 
     @Rule
     public final TextFromStandardInputStream systemInMock = emptyStandardInputStream();
+
+    @Rule
+    public final ExpectedSystemExit exit = ExpectedSystemExit.none();
 
     @Test
     public void testCheckCredentials() {
@@ -41,4 +47,15 @@ public class AuthenticatorTest {
         a.getCredentials();
         assertTrue(a.success);
     }
+
+    @Test
+    public void testQuit() {
+        exit.expectSystemExit();
+        systemInMock.provideLines("quit");
+        Authenticator a = new Authenticator();
+        try {a.getCredentials();}
+        catch (NoSuchElementException e) {}
+    }
+
+
 }
