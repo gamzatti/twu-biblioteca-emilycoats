@@ -1,5 +1,7 @@
 package com.twu.biblioteca;
 
+import org.junit.contrib.java.lang.system.SystemOutRule;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -9,19 +11,24 @@ public class ReturnMenu extends Menu {
     ReturnMenu(Library lib) {
         library = lib;
         instructions = "Type the number of the book you wish to return\n";
-        ArrayList<Book> bookList = library.checkedOutBooks;
+        ArrayList<Book> booklist = library.checkedOutBooks;
     }
 
     public void display() {
         super.display();
-        library.show(library.checkedOutBooks);
+        try {
+            library.show(BibliotecaApp.activeUser.collection);
+        }
+        catch (NullPointerException e) {
+//            System.out.println("No user is logged in");
+        }
     }
 
     public void respond() {
         Scanner scanner = new Scanner(System.in);
         if (scanner.hasNextInt()) {
             int chosenNumber = scanner.nextInt();
-            library.checkin(chosenNumber);
+            library.checkin(chosenNumber, BibliotecaApp.activeUser);
         }
         else {
             respondToQuitOrInvalid(scanner.next());

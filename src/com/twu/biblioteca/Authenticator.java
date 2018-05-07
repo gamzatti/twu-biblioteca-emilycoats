@@ -37,7 +37,6 @@ public class Authenticator {
             if (user.libraryNumber.equals(libraryNumber) && user.password.equals(password)){
                 success = true;
                 return user;
-//                break;
             }
         }
         return null;

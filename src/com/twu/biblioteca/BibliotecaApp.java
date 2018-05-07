@@ -1,7 +1,7 @@
 package com.twu.biblioteca;
 
 class BibliotecaApp {
-    final static String WELCOME = "Welcome to Biblioteca\nType 'quit' at any time to exit the program\n";
+    final static String WELCOME = "Welcome to Biblioteca\n";
     static Library library = new Library();
     static Authenticator authenticator = new Authenticator();
     static User activeUser;

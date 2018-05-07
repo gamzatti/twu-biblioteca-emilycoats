@@ -57,11 +57,13 @@ public class BibliotecaAppTest {
     }
 
     @Test
-    public void testBookCanBeReturned() {
+    public void testBookCanBeCheckedIn() {
         systemInMock.provideLines("0");
+        BibliotecaApp.activeUser = new User("123-4321", "88");
         Book b = new Book("The Agile Samurai", 0);
         Library l = BibliotecaApp.library;
         l.checkedOutBooks.add(b);
+        BibliotecaApp.activeUser.collection.add(b);
         String expected = "Type the number of the book you wish to return\n0. The Agile Samurai\n" +
                 Library.SUCCESSFUL_CHECKIN;
         BibliotecaApp.showReturnMenu();

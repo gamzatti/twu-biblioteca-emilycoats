@@ -39,13 +39,23 @@ public class MenuTest {
     public void testTyping2ShowsReturnMenu() {
         systemInMock.provideLines("2");
         Library l = BibliotecaApp.library;
-        Book b = new Book("The Agile Samurai", 0);
         MainMenu m = new MainMenu();
-        l.checkedOutBooks.add(b);
-        String expected = "Type the number of the book you wish to return\n0. The Agile Samurai\n";
+        String expected = "Type the number of the book you wish to return\n";
         try {m.respond();}
         catch (NoSuchElementException e ){}
         assertEquals(expected, systemOutRule.getLog());
+    }
+
+    @Test
+    public void testReturnMenuOnlyDisplaysBooksBorrowedByUser(){
+        Library l = BibliotecaApp.library;
+        ReturnMenu rm = new ReturnMenu(l);
+        BibliotecaApp.activeUser = new User("888-8888", "foo");
+        Book b = new Book("The Agile Samurai", 0);
+        l.checkedOutBooks.add(b);
+        rm.display();
+        assertEquals("Type the number of the book you wish to return\n",systemOutRule.getLog());
+
     }
 
     @Test
@@ -107,4 +117,10 @@ public class MenuTest {
     public void restoreBooksToLibrary() {
         BibliotecaApp.library = new Library();
     }
+
+    @After
+    public void restoreActiveUser() {
+        BibliotecaApp.activeUser= null;
+    }
+
 }

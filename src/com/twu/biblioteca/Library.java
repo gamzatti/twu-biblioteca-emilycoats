@@ -9,7 +9,7 @@ class Library {
     final static String SUCCESSFUL_CHECKOUT =  "Thank you! Enjoy the book.\n";
     final static String UNSUCCESSFUL_CHECKOUT =  "That book is not available.\n";
     final static String SUCCESSFUL_CHECKIN = "Thank you for returning the book.\n";
-    private final static String UNSUCCESSFUL_CHECKIN = "That is not a valid book to return.\n";
+    final static String UNSUCCESSFUL_CHECKIN = "That is not a valid book to return.\n";
 
 
     Library () {
@@ -54,8 +54,8 @@ class Library {
         checkout(selectedBook, u);
     }
 
-    void checkin(Book book) {
-        if (transact(book, checkedOutBooks, availableBooks).equals("successful")){
+    void checkin(Book book, User u) {
+        if (u.collection.contains(book) && transact(book, checkedOutBooks, availableBooks).equals("successful")){
             System.out.print(SUCCESSFUL_CHECKIN);
         }
         else {
@@ -63,9 +63,9 @@ class Library {
         }
     }
 
-    void checkin(int number) {
+    void checkin(int number, User u) {
         Book selectedBook = findFromIndex(number, checkedOutBooks);
-        checkin(selectedBook);
+        checkin(selectedBook, u);
     }
 
 

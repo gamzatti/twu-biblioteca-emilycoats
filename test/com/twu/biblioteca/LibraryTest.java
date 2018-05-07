@@ -57,13 +57,30 @@ public class LibraryTest {
         Library l = new Library();
         Book b = new Book("Head First Java", 0);
         l.checkedOutBooks.add(b);
-        l.checkin(b);
+        User u = new User("888-8888", "foo");
+        u.collection.add(b);
+        BibliotecaApp.activeUser = u;
+        l.checkin(b, BibliotecaApp.activeUser);
         assertEquals(Library.SUCCESSFUL_CHECKIN,systemOutRule.getLog());
         assertTrue(l.availableBooks.contains(b));
     }
+
+    @Test
+    public void testCanOnlyBeReturnedIfActiveUserHasBorrowedIt(){
+        Library l = new Library();
+        Book b = new Book("Head First Java", 0);
+        l.checkedOutBooks.add(b);
+        User u = new User("888-8888", "foo");
+        BibliotecaApp.activeUser = u;
+        l.checkin(b, BibliotecaApp.activeUser);
+        assertEquals(Library.UNSUCCESSFUL_CHECKIN,systemOutRule.getLog());
+        assertFalse(l.availableBooks.contains(b));
+    }
+
 
     @After
     public void restoreBooksToLibrary() {
         BibliotecaApp.library = new Library();
     }
+
 }
