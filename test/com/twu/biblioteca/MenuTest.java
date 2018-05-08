@@ -50,11 +50,22 @@ public class MenuTest {
     }
 
     @Test
-    public void testTyping3ShowsReturnMenu() {
+    public void testTyping3ShowsReturnBookMenu() {
         systemInMock.provideLines("3");
         BookLibrary l = BibliotecaApp.bl;
         MainMenu m = new MainMenu();
         String expected = "Type the number of the book you wish to return\n";
+        try {m.respond();}
+        catch (NoSuchElementException e ){}
+        assertEquals(expected, systemOutRule.getLog());
+    }
+
+    @Test
+    public void testTyping4ShowsReturnMovieMenu() {
+        systemInMock.provideLines("4");
+        MovieLibrary ml = BibliotecaApp.ml;
+        MainMenu m = new MainMenu();
+        String expected = "Type the number of the movie you wish to return\n";
         try {m.respond();}
         catch (NoSuchElementException e ){}
         assertEquals(expected, systemOutRule.getLog());
@@ -69,7 +80,18 @@ public class MenuTest {
         l.checkedOut.add(b);
         rm.display();
         assertEquals("Type the number of the book you wish to return\n",systemOutRule.getLog());
+    }
 
+    @Test
+    public void testReturnMenuDisplaysMoviesBorrowedByUser(){
+        BibliotecaApp.activeUser = new User("888-8888", "foo");
+        MovieLibrary ml = BibliotecaApp.ml;
+        ReturnMenu rm = new ReturnMenu(ml);
+        Movie m= new Movie("Foo", 0);
+        ml.available.add(m);
+        ml.checkout(m,BibliotecaApp.activeUser);
+        rm.display();
+        assertEquals("Thank you! Enjoy the movie.\nType the number of the movie you wish to return\n0. Foo\n",systemOutRule.getLog());
     }
 
     @Test
@@ -125,11 +147,10 @@ public class MenuTest {
 
 
     @Test
-    public void testMainMenuHasThreeOptions() {
+    public void testMainMenuHasFourOptions() {
         MainMenu mm = new MainMenu();
         mm.display();
-        String expected = "Main Menu. Select from the options below. \n" +
-                " 1. List available books\n 2. List available movies\n 3. Return a book\n";
+        String expected = "Main Menu. Select from the options below.\n 1. List available books\n 2. List available movies\n 3. Return a book\n 4. Return a movie\n";
         assertEquals(expected, systemOutRule.getLog());
     }
 

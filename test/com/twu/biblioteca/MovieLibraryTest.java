@@ -29,6 +29,7 @@ public class MovieLibraryTest {
         assertEquals(SAMPLE_MOVIELIST, systemOutRule.getLog());
 
     }
+
     @Test
     public void testSuccessfulCheckout(){
         MovieLibrary ml = new MovieLibrary();
@@ -39,6 +40,24 @@ public class MovieLibraryTest {
         ml.checkout(m, u);
         assertEquals(MovieLibrary.SUCCESSFUL_CHECKOUT, systemOutRule.getLog());
         assertTrue(u.movieCollection.contains(m));
+    }
+
+    @Test
+    public void testMovieIsRemovedFromAvailableBooksAfterCheckout() {
+        MovieLibrary l = new MovieLibrary();
+        Movie m = new Movie("movie10", 0);
+        l.available.add(m);
+        assertTrue(l.available.contains(m));
+        l.checkout(m, BibliotecaApp.activeUser);
+        assertFalse(l.available.contains(m));
+    }
+
+    @Test
+    public void testUnsuccessfulCheckout(){
+        MovieLibrary l = new MovieLibrary();
+        Movie m= new Movie("movie",0);
+        l.checkout(m, BibliotecaApp.activeUser);
+        assertEquals(MovieLibrary.UNSUCCESSFUL_CHECKOUT, systemOutRule.getLog());
     }
 
     @Test
@@ -54,14 +73,18 @@ public class MovieLibraryTest {
         assertTrue(l.available.contains(m));
     }
 
+
     @Test
-    public void testMovieIsRemovedFromAvailableBooksAfterCheckout() {
+    public void testCanOnlyBeReturnedIfActiveUserHasBorrowedIt(){
         MovieLibrary l = new MovieLibrary();
-        Movie m = new Movie("movie10", 0);
-        l.available.add(m);
-        assertTrue(l.available.contains(m));
-        l.checkout(m, BibliotecaApp.activeUser);
+        Movie m = new Movie("The Piano", 0);
+        l.checkedOut.add(m);
+        User u = new User("888-8888", "foo");
+        BibliotecaApp.activeUser = u;
+        l.checkin(m, BibliotecaApp.activeUser);
+        assertEquals(MovieLibrary.UNSUCCESSFUL_CHECKIN,systemOutRule.getLog());
         assertFalse(l.available.contains(m));
     }
+
 
 }

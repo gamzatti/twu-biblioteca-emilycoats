@@ -6,7 +6,7 @@ public class User {
     String libraryNumber;
     String password;
     ArrayList<Borrowable> bookCollection = new ArrayList<Borrowable>();
-    ArrayList<Movie> movieCollection = new ArrayList<Movie>();
+    ArrayList<Borrowable> movieCollection = new ArrayList<Borrowable>();
 
 
     User(String libraryNumber, String password) {

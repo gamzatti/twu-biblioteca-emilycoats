@@ -16,14 +16,19 @@ public class ReturnMenu extends Menu {
 
     ReturnMenu(MovieLibrary ml) {
         this.ml = ml;
-        instructions = "Type the number of the book you wish to return\n";
-        borrowableType = "book";
+        instructions = "Type the number of the movie you wish to return\n";
+        borrowableType = "movie";
     }
 
     public void display() {
         super.display();
         try {
-            bl.show(BibliotecaApp.activeUser.bookCollection);
+            if (borrowableType.equals("book")) {
+                bl.show(BibliotecaApp.activeUser.bookCollection);
+            }
+            else {
+                ml.show(BibliotecaApp.activeUser.movieCollection);
+            }
         }
         catch (NullPointerException e) {
 //            System.out.println("No user is logged in");

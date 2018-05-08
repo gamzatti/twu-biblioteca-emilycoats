@@ -5,10 +5,6 @@ import java.util.ArrayList;
 public abstract class Library {
     ArrayList<Borrowable> available;
     ArrayList<Borrowable> checkedOut;
-    static String SUCCESSFUL_CHECKOUT;
-    static String UNSUCCESSFUL_CHECKOUT;
-    static String SUCCESSFUL_CHECKIN;
-    static String UNSUCCESSFUL_CHECKIN;
 
     Library() {
         available = new ArrayList<Borrowable>();
@@ -24,7 +20,7 @@ public abstract class Library {
         }
     }
 
-    private Borrowable findFromIndex(int chosenNumber, ArrayList<Borrowable> borrowableList) {
+    Borrowable findFromIndex(int chosenNumber, ArrayList<Borrowable> borrowableList) {
         Borrowable selectedBorrowable = null;
         for (Borrowable b : borrowableList) {
             if (b.number == chosenNumber) {
@@ -36,9 +32,14 @@ public abstract class Library {
 
     abstract void checkout(int number, User u) ;
     abstract void checkin(Borrowable book, User u);
-    abstract void checkin(int number, User u);
 
-    private String transact(Borrowable borrowable, ArrayList<Borrowable> from, ArrayList<Borrowable> to){
+
+    void checkin(int number, User u) {
+        Borrowable selected = findFromIndex(number, checkedOut);
+        checkin(selected, u);
+    }
+
+    String transact(Borrowable borrowable, ArrayList<Borrowable> from, ArrayList<Borrowable> to){
         if (from.contains(borrowable)) {
             from.remove(borrowable);
             to.add(borrowable);

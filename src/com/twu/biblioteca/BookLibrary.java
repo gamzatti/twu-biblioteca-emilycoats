@@ -10,33 +10,16 @@ class BookLibrary extends Library {
     final static String UNSUCCESSFUL_CHECKIN = "That is not a valid book to return.\n";
 
 
-    BookLibrary() {
-        available = new ArrayList<Borrowable>();
-        checkedOut = new ArrayList<Borrowable>();
-        makeSamples();
-    }
-
     void makeSamples() {
-        Book b1 = new Book("Book1", 1);
-        Book b2 = new Book("Book2", 2);
-        Book b3 = new Book("Book3", 3);
-        available.addAll(Arrays.asList(b1, b2, b3));
+        Book a = new Book("Book1", 1);
+        Book b = new Book("Book2", 2);
+        Book c = new Book("Book3", 3);
+        available.addAll(Arrays.asList(a, b, c));
     }
 
-
-    private Borrowable findFromIndex(int chosenNumber, ArrayList<Borrowable> borrowableList) {
-        Borrowable selectedBorrowable = null;
-        for (Borrowable b : borrowableList) {
-            if (b.number == chosenNumber) {
-                selectedBorrowable = b;
-            }
-        }
-        return selectedBorrowable;
-    }
-
-    void checkout(Book book, User u){
+    void checkout(Borrowable book, User u){
         if (transact(book, available, checkedOut).equals("successful")){
-            u.bookCollection.add(book);
+            u.bookCollection.add((Book)book);
             System.out.print(SUCCESSFUL_CHECKOUT);
         }
         else {
@@ -55,23 +38,6 @@ class BookLibrary extends Library {
         }
         else {
             System.out.print(UNSUCCESSFUL_CHECKIN);
-        }
-    }
-
-    void checkin(int number, User u) {
-        Borrowable selectedBook = findFromIndex(number, checkedOut);
-        checkin(selectedBook, u);
-    }
-
-
-    private String transact(Borrowable borrowable, ArrayList<Borrowable> from, ArrayList<Borrowable> to){
-        if (from.contains(borrowable)) {
-            from.remove(borrowable);
-            to.add(borrowable);
-            return "successful";
-        }
-        else {
-            return "unsuccessful";
         }
     }
 
