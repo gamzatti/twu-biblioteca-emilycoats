@@ -3,6 +3,7 @@ package com.twu.biblioteca;
 public abstract class Menu {
     final static String INVALID = "Select a valid option!\n";
     String instructions;
+    BibliotecaApp bibliotecaApp;
 
     public abstract void respond();
 
@@ -12,7 +13,7 @@ public abstract class Menu {
 
     void respondToQuitOrInvalid(String input){
         if (input.equals("quit")) {
-            BibliotecaAppStatic.quit();
+            bibliotecaApp.quit();
         } else {
             System.out.print(INVALID);
             respond();

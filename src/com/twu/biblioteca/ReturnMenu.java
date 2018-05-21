@@ -7,13 +7,15 @@ public class ReturnMenu extends Menu {
     private MovieLibrary ml;
     private String borrowableType;
 
-    ReturnMenu(BookLibrary bl) {
+    ReturnMenu(BookLibrary bl, BibliotecaApp bibliotecaApp) {
+        this.bibliotecaApp = bibliotecaApp;
         this.bl = bl;
         instructions = "Type the number of the book you wish to return\n";
         borrowableType = "book";
     }
 
-    ReturnMenu(MovieLibrary ml) {
+    ReturnMenu(MovieLibrary ml, BibliotecaApp bibliotecaApp) {
+        this.bibliotecaApp = bibliotecaApp;
         this.ml = ml;
         instructions = "Type the number of the movie you wish to return\n";
         borrowableType = "movie";
@@ -23,10 +25,10 @@ public class ReturnMenu extends Menu {
         super.display();
         try {
             if (borrowableType.equals("book")) {
-                bl.show(BibliotecaAppStatic.activeUser.bookCollection);
+                bl.show(bibliotecaApp.activeUser.bookCollection);
             }
             else {
-                ml.show(BibliotecaAppStatic.activeUser.movieCollection);
+                ml.show(bibliotecaApp.activeUser.movieCollection);
             }
         }
         catch (NullPointerException e) {
@@ -39,10 +41,10 @@ public class ReturnMenu extends Menu {
         if (scanner.hasNextInt()) {
             int chosenNumber = scanner.nextInt();
             if (borrowableType.equals("book")) {
-                bl.checkin(chosenNumber, BibliotecaAppStatic.activeUser);
+                bl.checkin(chosenNumber, bibliotecaApp.activeUser);
             }
             else {
-                ml.checkin(chosenNumber, BibliotecaAppStatic.activeUser);
+                ml.checkin(chosenNumber, bibliotecaApp.activeUser);
             }
         }
         else {

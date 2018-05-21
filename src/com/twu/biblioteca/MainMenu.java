@@ -4,7 +4,9 @@ import java.util.Scanner;
 
 public class MainMenu extends Menu {
 
-    MainMenu(){
+
+    MainMenu(BibliotecaApp bibliotecaApp){
+        this.bibliotecaApp = bibliotecaApp;
         instructions = "Main Menu. Select from the options below.\n 1. List available books\n 2. List available movies\n 3. Return a book\n 4. Return a movie\n";
     }
 
@@ -12,16 +14,16 @@ public class MainMenu extends Menu {
         Scanner scanner = new Scanner(System.in);
         String input = scanner.next();
         if (input.equals("1")) {
-            BibliotecaAppStatic.showBorrowMenu("book");
+            bibliotecaApp.showBorrowMenu("book");
         }
         else if (input.equals("2")) {
-            BibliotecaAppStatic.showBorrowMenu("movie");
+            bibliotecaApp.showBorrowMenu("movie");
         }
         else if (input.equals("3")) {
-            BibliotecaAppStatic.showReturnMenu("book");
+            bibliotecaApp.showReturnMenu("book");
         }
         else if (input.equals("4")) {
-            BibliotecaAppStatic.showReturnMenu("movie");
+            bibliotecaApp.showReturnMenu("movie");
         }
 
         else {

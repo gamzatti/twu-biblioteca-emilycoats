@@ -14,7 +14,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.contrib.java.lang.system.TextFromStandardInputStream.emptyStandardInputStream;
 
 public class AuthenticatorTest {
-
+    BibliotecaApp bibliotecaApp = new BibliotecaApp();
     @Rule
     public final SystemOutRule systemOutRule = new SystemOutRule().enableLog();
 
@@ -27,7 +27,7 @@ public class AuthenticatorTest {
     @Test
     public void testCheckCredentials() {
         User user = new User("999-9999", "PASSWORD");
-        Authenticator a = new Authenticator();
+        Authenticator a = new Authenticator(bibliotecaApp);
         a.users.add(user);
         a.checkCredentials("999-9999", "PASSWORD");
         assertTrue(a.isSuccess());
@@ -35,7 +35,7 @@ public class AuthenticatorTest {
 
     @Test
     public void testFalseCredentials() {
-        Authenticator a = new Authenticator();
+        Authenticator a = new Authenticator(bibliotecaApp);
         a.checkCredentials("555-5555", "PASSWORD");
         assertFalse(a.isSuccess());
     }
@@ -43,7 +43,7 @@ public class AuthenticatorTest {
     @Test
     public void testGetCredentials() {
         systemInMock.provideLines("123-4567","password");
-        Authenticator a = new Authenticator();
+        Authenticator a = new Authenticator(bibliotecaApp);
         a.getCredentials();
         assertTrue(a.isSuccess());
     }
@@ -52,7 +52,7 @@ public class AuthenticatorTest {
     public void testQuit() {
         exit.expectSystemExit();
         systemInMock.provideLines("quit");
-        Authenticator a = new Authenticator();
+        Authenticator a = new Authenticator(bibliotecaApp);
         try {a.getCredentials();}
         catch (NoSuchElementException e) {}
     }

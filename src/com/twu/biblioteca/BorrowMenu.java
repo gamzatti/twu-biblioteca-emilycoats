@@ -7,13 +7,15 @@ public class BorrowMenu extends Menu {
     private MovieLibrary ml;
     private String borrowableType;
 
-    BorrowMenu(BookLibrary bl){
+    BorrowMenu(BookLibrary bl, BibliotecaApp bibliotecaApp){
+        this.bibliotecaApp = bibliotecaApp;
         instructions = "Please select an item to borrow by its number from the list below.\n";
         this.bl = bl;
         borrowableType = "book";
     }
 
-    BorrowMenu(MovieLibrary ml){
+    BorrowMenu(MovieLibrary ml, BibliotecaApp bibliotecaApp){
+        this.bibliotecaApp = bibliotecaApp;
         instructions = "Please select an item to borrow by its number from the list below.\n";
         this.ml = ml;
         borrowableType = "movie";
@@ -33,10 +35,10 @@ public class BorrowMenu extends Menu {
         if (scanner.hasNextInt()) {
             int chosenNumber = scanner.nextInt();
             if (borrowableType.equals("book")) {
-                bl.checkout(chosenNumber, BibliotecaAppStatic.activeUser);
+                bl.checkout(chosenNumber, bibliotecaApp.activeUser);
             }
             else {
-                ml.checkout(chosenNumber, BibliotecaAppStatic.activeUser);
+                ml.checkout(chosenNumber, bibliotecaApp.activeUser);
             }
         }
         else {

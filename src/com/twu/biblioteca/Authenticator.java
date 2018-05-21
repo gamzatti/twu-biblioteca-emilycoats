@@ -9,8 +9,10 @@ public class Authenticator {
     final HashMap<String, String> instructions = new HashMap<String, String>();
     ArrayList<User> users = new ArrayList<User>();
     final String INVALID = "Sorry, that is not a valid combination";
+    BibliotecaApp bibliotecaApp;
 
-    Authenticator(){
+    Authenticator(BibliotecaApp bibliotecaApp){
+        this.bibliotecaApp = bibliotecaApp;
         instructions.put("libraryNumber", "Please enter your library number\n");
         instructions.put("password", "Please enter your password\n");
         User sampleUser = new User("123-4567", "password");
@@ -28,7 +30,7 @@ public class Authenticator {
         Scanner scanner = new Scanner(System.in);
         String input = scanner.next();
         if (input.equals("quit")) {
-            BibliotecaAppStatic.quit();
+            bibliotecaApp.quit();
         }
         return input;
     }

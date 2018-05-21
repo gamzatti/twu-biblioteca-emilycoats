@@ -10,6 +10,7 @@ import org.junit.contrib.java.lang.system.TextFromStandardInputStream;
 
 
 public class BookLibraryTest {
+    BibliotecaApp bibliotecaApp = new BibliotecaApp();
 
     @Rule
     public final SystemOutRule systemOutRule = new SystemOutRule().enableLog();
@@ -25,7 +26,7 @@ public class BookLibraryTest {
         BookLibrary l = new BookLibrary();
         Book b = new Book("book", 0);
         User u = new User("888-8888", "foo");
-        BibliotecaAppStatic.activeUser = u;
+        bibliotecaApp.activeUser = u;
         l.available.add(b);
         l.checkout(b, u);
         assertEquals(BookLibrary.SUCCESSFUL_CHECKOUT, systemOutRule.getLog());
@@ -37,9 +38,10 @@ public class BookLibraryTest {
     public void testBookIsRemovedFromAvailableBooksAfterCheckout() {
         BookLibrary l = new BookLibrary();
         Book b = new Book("book", 0);
+        User u = new User("123-1234", "foo");
         l.available.add(b);
         assertTrue(l.available.contains(b));
-        l.checkout(b, BibliotecaAppStatic.activeUser);
+        l.checkout(b, u);
         assertFalse(l.available.contains(b));
     }
 
@@ -47,7 +49,7 @@ public class BookLibraryTest {
     public void testUnsuccessfulCheckout(){
         BookLibrary l = new BookLibrary();
         Book b = new Book("book",0);
-        l.checkout(b, BibliotecaAppStatic.activeUser);
+        l.checkout(b, bibliotecaApp.activeUser);
         assertEquals(BookLibrary.UNSUCCESSFUL_CHECKOUT, systemOutRule.getLog());
     }
 
@@ -58,8 +60,8 @@ public class BookLibraryTest {
         l.checkedOut.add(b);
         User u = new User("888-8888", "foo");
         u.bookCollection.add(b);
-        BibliotecaAppStatic.activeUser = u;
-        l.checkin(b, BibliotecaAppStatic.activeUser);
+        bibliotecaApp.activeUser = u;
+        l.checkin(b, bibliotecaApp.activeUser);
         assertEquals(BookLibrary.SUCCESSFUL_CHECKIN,systemOutRule.getLog());
         assertTrue(l.available.contains(b));
     }
@@ -70,8 +72,8 @@ public class BookLibraryTest {
         Book b = new Book("Head First Java", 0);
         l.checkedOut.add(b);
         User u = new User("888-8888", "foo");
-        BibliotecaAppStatic.activeUser = u;
-        l.checkin(b, BibliotecaAppStatic.activeUser);
+        bibliotecaApp.activeUser = u;
+        l.checkin(b, bibliotecaApp.activeUser);
         assertEquals(BookLibrary.UNSUCCESSFUL_CHECKIN,systemOutRule.getLog());
         assertFalse(l.available.contains(b));
     }
@@ -83,7 +85,7 @@ public class BookLibraryTest {
 
 //    @After
 //    public void restoreBooksToLibrary() {
-//        BibliotecaAppStatic.bl = new BookLibrary();
+//        bibliotecaApp.bl = new BookLibrary();
 //    }
 
 }

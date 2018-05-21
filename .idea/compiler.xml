@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-    <option name="DEFAULT_COMPILER" value="Javac" />
-    <resourceExtensions />
+    <excludeFromCompile>
+      <file url="file://$PROJECT_DIR$/src/com/twu/biblioteca/BibliotecaAppStatic.java" />
+      <file url="file://$PROJECT_DIR$/test/com/twu/biblioteca/BibliotecaAppStaticTest.java" />
+    </excludeFromCompile>
     <wildcardResourcePatterns>
       <entry name="?*.properties" />
       <entry name="?*.xml" />
@@ -15,7 +17,5 @@
       <entry name="?*.tld" />
       <entry name="?*.ftl" />
     </wildcardResourcePatterns>
-    <annotationProcessing enabled="false" useClasspath="true" />
   </component>
 </project>
-

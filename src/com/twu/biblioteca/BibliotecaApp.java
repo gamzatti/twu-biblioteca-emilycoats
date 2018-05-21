@@ -4,15 +4,12 @@ public class BibliotecaApp {
     final String WELCOME = "Welcome to Biblioteca\n";
     BookLibrary bl = new BookLibrary();
     MovieLibrary ml = new MovieLibrary();
-    Authenticator authenticator = new Authenticator();
+    Authenticator authenticator = new Authenticator(this);
     User activeUser;
 
-    public static void main(String[] args){
-        BibliotecaApp b = new BibliotecaApp();
-        b.start();
-    }
 
-    private void start() {
+
+    void start() {
         System.out.print(WELCOME);
         showAuthentication();
     }
@@ -29,7 +26,7 @@ public class BibliotecaApp {
         }
     }
     private void showMainMenu() {
-        MainMenu m = new MainMenu();
+        MainMenu m = new MainMenu(this);
         m.display();
         m.respond();
     }
@@ -40,10 +37,10 @@ public class BibliotecaApp {
     void showBorrowMenu(String bookOrMovie) {
         BorrowMenu bm;
         if (bookOrMovie.equals("book")) {
-            bm = new BorrowMenu(bl);
+            bm = new BorrowMenu(bl, this);
         }
         else {
-            bm = new BorrowMenu(ml);
+            bm = new BorrowMenu(ml, this);
         }
         bm.display();
         bm.respond();
@@ -52,10 +49,10 @@ public class BibliotecaApp {
     void showReturnMenu(String bookOrMovie) {
         ReturnMenu rm;
         if (bookOrMovie.equals("book")) {
-            rm = new ReturnMenu(bl);
+            rm = new ReturnMenu(bl, this);
         }
         else {
-            rm = new ReturnMenu(ml);
+            rm = new ReturnMenu(ml, this);
         }
         rm.display();
         rm.respond();
