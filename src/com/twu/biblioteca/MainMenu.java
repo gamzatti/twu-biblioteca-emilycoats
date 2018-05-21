@@ -3,7 +3,10 @@ package com.twu.biblioteca;
 import java.util.Scanner;
 
 public class MainMenu extends Menu {
-
+    final String BORROW_BOOK = "1";
+    final String BORROW_MOVIE = "2";
+    final String RETURN_BOOK = "3";
+    final String RETURN_MOVIE = "4";
 
     MainMenu(BibliotecaApp bibliotecaApp){
         this.bibliotecaApp = bibliotecaApp;
@@ -13,16 +16,16 @@ public class MainMenu extends Menu {
     public void respond(){
         Scanner scanner = new Scanner(System.in);
         String input = scanner.next();
-        if (input.equals("1")) {
+        if (input.equals(BORROW_BOOK)) {
             bibliotecaApp.showBorrowMenu("book");
         }
-        else if (input.equals("2")) {
+        else if (input.equals(BORROW_MOVIE)) {
             bibliotecaApp.showBorrowMenu("movie");
         }
-        else if (input.equals("3")) {
+        else if (input.equals(RETURN_BOOK)) {
             bibliotecaApp.showReturnMenu("book");
         }
-        else if (input.equals("4")) {
+        else if (input.equals(RETURN_MOVIE)) {
             bibliotecaApp.showReturnMenu("movie");
         }
 
