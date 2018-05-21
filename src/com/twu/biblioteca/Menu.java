@@ -12,7 +12,7 @@ public abstract class Menu {
 
     void respondToQuitOrInvalid(String input){
         if (input.equals("quit")) {
-            BibliotecaApp.quit();
+            BibliotecaAppStatic.quit();
         } else {
             System.out.print(INVALID);
             respond();

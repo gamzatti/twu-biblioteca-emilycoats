@@ -1,6 +1,5 @@
 package com.twu.biblioteca;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ReturnMenu extends Menu {
@@ -24,10 +23,10 @@ public class ReturnMenu extends Menu {
         super.display();
         try {
             if (borrowableType.equals("book")) {
-                bl.show(BibliotecaApp.activeUser.bookCollection);
+                bl.show(BibliotecaAppStatic.activeUser.bookCollection);
             }
             else {
-                ml.show(BibliotecaApp.activeUser.movieCollection);
+                ml.show(BibliotecaAppStatic.activeUser.movieCollection);
             }
         }
         catch (NullPointerException e) {
@@ -40,10 +39,10 @@ public class ReturnMenu extends Menu {
         if (scanner.hasNextInt()) {
             int chosenNumber = scanner.nextInt();
             if (borrowableType.equals("book")) {
-                bl.checkin(chosenNumber, BibliotecaApp.activeUser);
+                bl.checkin(chosenNumber, BibliotecaAppStatic.activeUser);
             }
             else {
-                ml.checkin(chosenNumber, BibliotecaApp.activeUser);
+                ml.checkin(chosenNumber, BibliotecaAppStatic.activeUser);
             }
         }
         else {

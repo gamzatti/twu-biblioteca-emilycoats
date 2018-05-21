@@ -28,7 +28,7 @@ public class Authenticator {
         Scanner scanner = new Scanner(System.in);
         String input = scanner.next();
         if (input.equals("quit")) {
-            BibliotecaApp.quit();
+            BibliotecaAppStatic.quit();
         }
         return input;
     }

@@ -33,10 +33,10 @@ public class BorrowMenu extends Menu {
         if (scanner.hasNextInt()) {
             int chosenNumber = scanner.nextInt();
             if (borrowableType.equals("book")) {
-                bl.checkout(chosenNumber, BibliotecaApp.activeUser);
+                bl.checkout(chosenNumber, BibliotecaAppStatic.activeUser);
             }
             else {
-                ml.checkout(chosenNumber, BibliotecaApp.activeUser);
+                ml.checkout(chosenNumber, BibliotecaAppStatic.activeUser);
             }
         }
         else {

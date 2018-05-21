@@ -35,7 +35,7 @@ public class MovieLibraryTest {
         MovieLibrary ml = new MovieLibrary();
         Movie m = new Movie("movie", 0);
         User u = new User("888-8888", "foo");
-        BibliotecaApp.activeUser = u;
+        BibliotecaAppStatic.activeUser = u;
         ml.available.add(m);
         ml.checkout(m, u);
         assertEquals(MovieLibrary.SUCCESSFUL_CHECKOUT, systemOutRule.getLog());
@@ -48,7 +48,7 @@ public class MovieLibraryTest {
         Movie m = new Movie("movie10", 0);
         l.available.add(m);
         assertTrue(l.available.contains(m));
-        l.checkout(m, BibliotecaApp.activeUser);
+        l.checkout(m, BibliotecaAppStatic.activeUser);
         assertFalse(l.available.contains(m));
     }
 
@@ -56,7 +56,7 @@ public class MovieLibraryTest {
     public void testUnsuccessfulCheckout(){
         MovieLibrary l = new MovieLibrary();
         Movie m= new Movie("movie",0);
-        l.checkout(m, BibliotecaApp.activeUser);
+        l.checkout(m, BibliotecaAppStatic.activeUser);
         assertEquals(MovieLibrary.UNSUCCESSFUL_CHECKOUT, systemOutRule.getLog());
     }
 
@@ -67,8 +67,8 @@ public class MovieLibraryTest {
         l.checkedOut.add(m);
         User u = new User("888-8888", "foo");
         u.movieCollection.add(m);
-        BibliotecaApp.activeUser = u;
-        l.checkin(m, BibliotecaApp.activeUser);
+        BibliotecaAppStatic.activeUser = u;
+        l.checkin(m, BibliotecaAppStatic.activeUser);
         assertEquals(MovieLibrary.SUCCESSFUL_CHECKIN,systemOutRule.getLog());
         assertTrue(l.available.contains(m));
     }
@@ -80,8 +80,8 @@ public class MovieLibraryTest {
         Movie m = new Movie("The Piano", 0);
         l.checkedOut.add(m);
         User u = new User("888-8888", "foo");
-        BibliotecaApp.activeUser = u;
-        l.checkin(m, BibliotecaApp.activeUser);
+        BibliotecaAppStatic.activeUser = u;
+        l.checkin(m, BibliotecaAppStatic.activeUser);
         assertEquals(MovieLibrary.UNSUCCESSFUL_CHECKIN,systemOutRule.getLog());
         assertFalse(l.available.contains(m));
     }

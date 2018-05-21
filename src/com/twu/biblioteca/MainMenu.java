@@ -12,16 +12,16 @@ public class MainMenu extends Menu {
         Scanner scanner = new Scanner(System.in);
         String input = scanner.next();
         if (input.equals("1")) {
-            BibliotecaApp.showBorrowMenu("book");
+            BibliotecaAppStatic.showBorrowMenu("book");
         }
         else if (input.equals("2")) {
-            BibliotecaApp.showBorrowMenu("movie");
+            BibliotecaAppStatic.showBorrowMenu("movie");
         }
         else if (input.equals("3")) {
-            BibliotecaApp.showReturnMenu("book");
+            BibliotecaAppStatic.showReturnMenu("book");
         }
         else if (input.equals("4")) {
-            BibliotecaApp.showReturnMenu("movie");
+            BibliotecaAppStatic.showReturnMenu("movie");
         }
 
         else {

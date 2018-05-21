@@ -1,26 +1,26 @@
 package com.twu.biblioteca;
 
-public class BibliotecaApp {
-    final String WELCOME = "Welcome to Biblioteca\n";
-    BookLibrary bl = new BookLibrary();
-    MovieLibrary ml = new MovieLibrary();
-    Authenticator authenticator = new Authenticator();
-    User activeUser;
+class BibliotecaAppStatic {
+    final static String WELCOME = "Welcome to Biblioteca\n";
+    static BookLibrary bl = new BookLibrary();
+    static MovieLibrary ml = new MovieLibrary();
+    static Authenticator authenticator = new Authenticator();
+    static User activeUser;
+
 
     public static void main(String[] args){
-        BibliotecaApp b = new BibliotecaApp();
-        b.start();
+        BibliotecaAppStatic.start();
     }
 
-    private void start() {
+    private static void start() {
         System.out.print(WELCOME);
         showAuthentication();
     }
 
-    void showAuthentication() {
-        User user = authenticator.getCredentials();
+    static void showAuthentication() {
+        User user = BibliotecaAppStatic.authenticator.getCredentials();
         if (authenticator.isSuccess()) {
-            activeUser = user;
+            BibliotecaAppStatic.activeUser = user;
             showMainMenu();
         }
         else {
@@ -28,16 +28,20 @@ public class BibliotecaApp {
             authenticator.getCredentials();
         }
     }
-    private void showMainMenu() {
+
+    private static void showMainMenu() {
         MainMenu m = new MainMenu();
         m.display();
         m.respond();
     }
 
-    void quit() {
+    static void quit() {
+
         System.exit(0);
+
     }
-    void showBorrowMenu(String bookOrMovie) {
+
+    static void showBorrowMenu(String bookOrMovie) {
         BorrowMenu bm;
         if (bookOrMovie.equals("book")) {
             bm = new BorrowMenu(bl);
@@ -49,7 +53,7 @@ public class BibliotecaApp {
         bm.respond();
     }
 
-    void showReturnMenu(String bookOrMovie) {
+    static void showReturnMenu(String bookOrMovie) {
         ReturnMenu rm;
         if (bookOrMovie.equals("book")) {
             rm = new ReturnMenu(bl);
@@ -62,3 +66,5 @@ public class BibliotecaApp {
     }
 
 }
+
+

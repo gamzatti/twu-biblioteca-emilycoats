@@ -52,7 +52,7 @@ public class MenuTest {
     @Test
     public void testTyping3ShowsReturnBookMenu() {
         systemInMock.provideLines("3");
-        BookLibrary l = BibliotecaApp.bl;
+        BookLibrary l = BibliotecaAppStatic.bl;
         MainMenu m = new MainMenu();
         String expected = "Type the number of the book you wish to return\n";
         try {m.respond();}
@@ -63,7 +63,7 @@ public class MenuTest {
     @Test
     public void testTyping4ShowsReturnMovieMenu() {
         systemInMock.provideLines("4");
-        MovieLibrary ml = BibliotecaApp.ml;
+        MovieLibrary ml = BibliotecaAppStatic.ml;
         MainMenu m = new MainMenu();
         String expected = "Type the number of the movie you wish to return\n";
         try {m.respond();}
@@ -73,9 +73,9 @@ public class MenuTest {
 
     @Test
     public void testReturnMenuOnlyDisplaysBooksBorrowedByUser(){
-        BookLibrary l = BibliotecaApp.bl;
+        BookLibrary l = BibliotecaAppStatic.bl;
         ReturnMenu rm = new ReturnMenu(l);
-        BibliotecaApp.activeUser = new User("888-8888", "foo");
+        BibliotecaAppStatic.activeUser = new User("888-8888", "foo");
         Book b = new Book("The Agile Samurai", 0);
         l.checkedOut.add(b);
         rm.display();
@@ -84,12 +84,12 @@ public class MenuTest {
 
     @Test
     public void testReturnMenuDisplaysMoviesBorrowedByUser(){
-        BibliotecaApp.activeUser = new User("888-8888", "foo");
-        MovieLibrary ml = BibliotecaApp.ml;
+        BibliotecaAppStatic.activeUser = new User("888-8888", "foo");
+        MovieLibrary ml = BibliotecaAppStatic.ml;
         ReturnMenu rm = new ReturnMenu(ml);
         Movie m= new Movie("Foo", 0);
         ml.available.add(m);
-        ml.checkout(m,BibliotecaApp.activeUser);
+        ml.checkout(m,BibliotecaAppStatic.activeUser);
         rm.display();
         assertEquals("Thank you! Enjoy the movie.\nType the number of the movie you wish to return\n0. Foo\n",systemOutRule.getLog());
     }
@@ -121,7 +121,7 @@ public class MenuTest {
 
     @Test
     public void testInvalidFromBorrowMenu(){
-        BorrowMenu bm = new BorrowMenu(BibliotecaApp.bl);
+        BorrowMenu bm = new BorrowMenu(BibliotecaAppStatic.bl);
         systemInMock.provideLines("foo");
         try {bm.respond();}
         catch (NoSuchElementException e) {}
@@ -138,7 +138,7 @@ public class MenuTest {
 
     @Test
     public void testInvalidFromReturnMenu(){
-        ReturnMenu rm = new ReturnMenu(BibliotecaApp.bl);
+        ReturnMenu rm = new ReturnMenu(BibliotecaAppStatic.bl);
         systemInMock.provideLines("foo");
         try {rm.respond();}
         catch (NoSuchElementException e) {}
@@ -156,12 +156,12 @@ public class MenuTest {
 
     @After
     public void restoreBooksToLibrary() {
-        BibliotecaApp.bl = new BookLibrary();
+        BibliotecaAppStatic.bl = new BookLibrary();
     }
 
     @After
     public void restoreActiveUser() {
-        BibliotecaApp.activeUser= null;
+        BibliotecaAppStatic.activeUser= null;
     }
 
 }
